@@ -7,7 +7,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Como 2026">
 <title>🇨🇭🇮🇹 Zürich & Lake Como · Mai 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
+#map { height: 340px; border-radius: 10px; z-index: 1; }
+
 :root {
   --text: #1a1a1a; --text2: #555; --text3: #888;
   --border: #e0e0e0; --border2: #bbb;
@@ -181,11 +185,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
   </div>
   <div class="tab-bar">
     <div class="tab on" onclick="sw('tl',this)">📅 Tidslinje</div>
+    <div class="tab" onclick="sw('map',this)">🗺 Kart</div>
     <div class="tab" onclick="sw('food',this)">🍝 Restauranter</div>
     <div class="tab" onclick="sw('fly',this)">✈️ Fly</div>
     <div class="tab" onclick="sw('trans',this)">🚂 Transport</div>
     <div class="tab" onclick="sw('spec',this)">🍨 Spesialiteter</div>
-    <div class="tab" onclick="sw('book',this)">✅ Booking</div>
     <div class="tab" onclick="sw('prac',this)">📋 Praktisk</div>
   </div>
 </div>
@@ -199,6 +203,67 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="hotel-strip" id="hotel-strip"></div>
   </div>
   <div id="day-panel"></div>
+</div>
+
+<!-- MAP TAB -->
+<div id="v-map" class="view">
+  <div class="map-outer">
+    <svg class="map-svg" viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg">
+      <!-- Simplified Switzerland/N.Italy region outline -->
+      <rect width="400" height="340" fill="#EAF4FB" rx="8"/>
+      <!-- Switzerland rough outline -->
+      <path d="M60 100 L100 80 L140 75 L180 70 L230 68 L270 75 L300 90 L320 105 L315 130 L300 145 L310 165 L290 180 L260 190 L250 210 L230 225 L210 230 L190 235 L170 230 L150 220 L130 210 L110 195 L90 175 L75 155 L65 130 Z" fill="#D0E8F5" stroke="#9DC8E0" stroke-width="1.5"/>
+      <!-- Northern Italy rough area -->
+      <path d="M150 220 L170 230 L190 235 L210 230 L230 225 L250 210 L260 230 L255 255 L240 270 L220 280 L200 285 L180 280 L160 265 L148 245 Z" fill="#E8F5E0" stroke="#A8C890" stroke-width="1.5"/>
+      <!-- Lake Como shape (simplified) -->
+      <path d="M215 235 L220 248 L217 265 L215 275 L213 265 L210 248 Z" fill="#85C1E9" stroke="#5DADE2" stroke-width="1"/>
+      <path d="M210 248 L202 258 L196 265 L193 260 L198 252 L207 247 Z" fill="#85C1E9" stroke="#5DADE2" stroke-width="0.8"/>
+      <!-- Lake Zürich small -->
+      <ellipse cx="195" cy="120" rx="10" ry="6" fill="#85C1E9" stroke="#5DADE2" stroke-width="0.8"/>
+      <!-- Lake Lugano small -->
+      <ellipse cx="220" cy="218" rx="12" ry="5" fill="#85C1E9" stroke="#5DADE2" stroke-width="0.8"/>
+      <!-- Route line: Zürich → Lake Como → Lugano -->
+      <path d="M193 118 L215 240 L220 217" stroke="#E879A0" stroke-width="1.8" stroke-dasharray="5,4" fill="none" opacity="0.8"/>
+      <!-- Dots on route -->
+      <circle cx="193" cy="118" r="3" fill="#E879A0" opacity="0.5"/>
+      <circle cx="215" cy="240" r="3" fill="#E879A0" opacity="0.5"/>
+      <circle cx="220" cy="217" r="3" fill="#E879A0" opacity="0.5"/>
+      <!-- Zürich pin -->
+      <g onclick="showMap('zurich')" style="cursor:pointer">
+        <circle cx="193" cy="118" r="24" fill="#E3F2FD" stroke="#1E88E5" stroke-width="1.5" opacity="0.95"/>
+        <text x="193" y="113" text-anchor="middle" font-size="14">🏙️</text>
+        <text x="193" y="124" font-size="9" fill="#0D47A1" font-weight="700" text-anchor="middle">ZÜRICH</text>
+        <text x="193" y="133" font-size="8" fill="#1E88E5" text-anchor="middle">21–22 mai</text>
+      </g>
+      <!-- Lake Como pin -->
+      <g onclick="showMap('como')" style="cursor:pointer">
+        <circle cx="213" cy="255" r="24" fill="#E0F2F1" stroke="#00897B" stroke-width="1.5" opacity="0.95"/>
+        <text x="213" y="250" text-anchor="middle" font-size="14">⛵</text>
+        <text x="213" y="261" font-size="8.5" fill="#00695C" font-weight="700" text-anchor="middle">LAKE COMO</text>
+        <text x="213" y="270" font-size="8" fill="#00897B" text-anchor="middle">22–24 mai</text>
+      </g>
+      <!-- Lugano pin -->
+      <g onclick="showMap('lugano')" style="cursor:pointer">
+        <circle cx="230" cy="210" r="22" fill="#FDE7F0" stroke="#E879A0" stroke-width="1.5" opacity="0.95"/>
+        <text x="230" y="205" text-anchor="middle" font-size="13">🌸</text>
+        <text x="230" y="216" font-size="9" fill="#B91C4A" font-weight="700" text-anchor="middle">LUGANO</text>
+        <text x="230" y="224" font-size="8" fill="#E879A0" text-anchor="middle">24–25 mai</text>
+      </g>
+      <!-- Labels -->
+      <text x="150" y="140" font-size="9" fill="#888" font-style="italic">Sveits</text>
+      <text x="195" y="295" font-size="9" fill="#888" font-style="italic">Nord-Italia</text>
+      <text x="30" y="95" font-size="9" fill="#666">Frankrike</text>
+      <text x="330" y="90" font-size="9" fill="#666">Østerrike</text>
+    </svg>
+  </div>
+  <div class="map-legend">
+    <div class="map-leg-item"><div class="map-leg-dot" style="background:var(--city1)"></div> Zürich</div>
+    <div class="map-leg-item"><div class="map-leg-dot" style="background:var(--city2)"></div> Lake Como</div>
+    <div class="map-leg-item"><div class="map-leg-dot" style="background:var(--city3)"></div> Lugano</div>
+  </div>
+  <div id="map-card">
+    <div style="color:var(--text3);font-size:13px;text-align:center;padding:10px;">Trykk på en by på kartet for detaljer.</div>
+  </div>
 </div>
 
 <!-- RESTAURANTS TAB -->
@@ -660,113 +725,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
   </div>
 </div>
 
-<!-- BOOKING TAB -->
-<div id="v-book" class="view">
-  <div class="section-title">🚂 Tog å booke</div>
-  <div style="font-size:12px;color:var(--text3);margin-bottom:14px;padding-left:2px;">Alle togstrekninger basert på hotellene dere bor på. Huk av etter hvert som de bookes.</div>
-
-  <div class="prac-section">
-    <div class="prac-title" style="color:var(--city1);">📅 Torsdag 21. mai — Ankomst Zürich</div>
-    <div class="checklist-item">
-      <input type="checkbox" id="b1">
-      <label for="b1" style="cursor:pointer;">
-        <strong>ZRH Flughafen → Zürich Hardbrücke</strong><br>
-        <span style="font-size:12px;color:var(--text2);">Avgang: ~19:55 (etter landing 19:40) &nbsp;·&nbsp; Ankomst: ~20:07<br>
-        Selskap: SBB / ZVV &nbsp;·&nbsp; Tog: S-Bahn S16<br>
-        Fra: Flughafen undergrunnsstasjon &nbsp;·&nbsp; Til: Hardbrücke (~10 min gange til Viadukt Apartments)<br>
-        Pris: CHF 6.80 / person &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Kjøp i ZVV-appen eller automat på flyplassen — ikke forhåndsbook</span></span>
-      </label>
-    </div>
-  </div>
-
-  <div class="prac-section">
-    <div class="prac-title" style="color:var(--city1);">📅 Fredag 22. mai — Zürich → Lake Como</div>
-    <div class="checklist-item" style="margin-bottom:12px;">
-      <input type="checkbox" id="b2a">
-      <label for="b2a" style="cursor:pointer;">
-        <strong>Zürich HB → Lugano</strong><br>
-        <span style="font-size:12px;color:var(--text2);">Avgang: ~11:30 &nbsp;·&nbsp; Ankomst Lugano: ~13:00<br>
-        Selskap: SBB &nbsp;·&nbsp; Tog: InterCity (IC) mot Milano<br>
-        Fra: Zürich HB &nbsp;·&nbsp; Til: Lugano<br>
-        Pris: CHF 35–50 / person &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Book nå i SBB-appen — billigere tidlig</span></span>
-      </label>
-    </div>
-    <div class="checklist-item" style="margin-bottom:12px;">
-      <input type="checkbox" id="b2b">
-      <label for="b2b" style="cursor:pointer;">
-        <strong>Lugano → Como San Giovanni</strong><br>
-        <span style="font-size:12px;color:var(--text2);">Avgang: ~13:20 etter bytte &nbsp;·&nbsp; Ankomst: ~13:55<br>
-        Selskap: Trenitalia &nbsp;·&nbsp; Tog: Regionaltog<br>
-        Fra: Lugano stasjon &nbsp;·&nbsp; Til: Como San Giovanni<br>
-        Pris: ca. €5–8 / person &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Kjøp i Trenitalia-appen eller automat Lugano stasjon</span></span>
-      </label>
-    </div>
-    <div class="checklist-item">
-      <input type="checkbox" id="b2c">
-      <label for="b2c" style="cursor:pointer;">
-        <strong>Como San Giovanni → Sala Comacina (buss eller taxi)</strong><br>
-        <span style="font-size:12px;color:var(--text2);">Buss SP18 retning Menaggio — stopp Sala Comacina, ~45 min<br>
-        Alternativt: taxi ~€35–40, ~30 min &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Anbefalt med bagasje</span><br>
-        Busstopp rett utenfor Como San Giovanni stasjon</span>
-      </label>
-    </div>
-  </div>
-
-  <div class="prac-section">
-    <div class="prac-title" style="color:var(--city2);">📅 Søndag 24. mai — Lake Como → Lugano</div>
-    <div class="checklist-item" style="margin-bottom:12px;">
-      <input type="checkbox" id="b3a">
-      <label for="b3a" style="cursor:pointer;">
-        <strong>Sala Comacina → Como San Giovanni (taxi)</strong><br>
-        <span style="font-size:12px;color:var(--text2);">Utsjekk SALA-UNO: senest 11:00 &nbsp;·&nbsp; Kjøretid: ~30 min<br>
-        Pris: ca. €35–40 &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Book kvelden før — spør hotellet om hjelp</span></span>
-      </label>
-    </div>
-    <div class="checklist-item">
-      <input type="checkbox" id="b3b">
-      <label for="b3b" style="cursor:pointer;">
-        <strong>Como San Giovanni → Lugano</strong><br>
-        <span style="font-size:12px;color:var(--text2);">Avgang: ~12:00–12:30 &nbsp;·&nbsp; Ankomst: ~12:45<br>
-        Selskap: Trenitalia &nbsp;·&nbsp; Tog: Regionaltog direkte<br>
-        Fra: Como San Giovanni &nbsp;·&nbsp; Til: Lugano<br>
-        Pris: ca. €10–15 / person &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Kjøp i Trenitalia-appen</span></span>
-      </label>
-    </div>
-  </div>
-
-  <div class="prac-section">
-    <div class="prac-title" style="color:var(--city3);">📅 Mandag 25. mai — Lugano → Zürich Flyplass</div>
-    <div class="checklist-item" style="margin-bottom:12px;">
-      <input type="checkbox" id="b4a">
-      <label for="b4a" style="cursor:pointer;">
-        <strong>Lugano HB → Zürich HB</strong><br>
-        <span style="font-size:12px;color:var(--text2);">Avgang: senest 17:00 &nbsp;·&nbsp; Ankomst ZRH HB: ~18:55<br>
-        Selskap: SBB &nbsp;·&nbsp; Tog: InterCity direkte<br>
-        Fra: Lugano HB &nbsp;·&nbsp; Til: Zürich HB<br>
-        Pris: CHF 43 / person (inkl. S-Bahn til flyplass) &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Book i SBB-appen</span></span>
-      </label>
-    </div>
-    <div class="checklist-item">
-      <input type="checkbox" id="b4b">
-      <label for="b4b" style="cursor:pointer;">
-        <strong>Zürich HB → Zürich Flughafen</strong><br>
-        <span style="font-size:12px;color:var(--text2);">Avgang: ~19:00 &nbsp;·&nbsp; Ankomst ZRH: ~19:12<br>
-        Selskap: SBB / ZVV &nbsp;·&nbsp; Tog: S-Bahn S16 eller S2, spor 21–24<br>
-        <span style="color:#2E7D32;font-weight:600;">Inkludert i Lugano–Zürich billetten — ingen ekstra kjøp</span></span>
-      </label>
-    </div>
-  </div>
-
-  <div class="prac-section" style="background:var(--city1-bg);border-color:var(--city1-bd);">
-    <div class="prac-title">💰 Estimert togtotal for 2 personer</div>
-    <div class="prac-item"><strong>21. mai — ZRH Flyplass → Zürich:</strong> CHF 6.80 × 2 = CHF 13.60</div>
-    <div class="prac-item"><strong>22. mai — Zürich → Como:</strong> ~CHF 45 × 2 + €6 × 2 = ca. CHF 90 + €12</div>
-    <div class="prac-item"><strong>24. mai — Como → Lugano:</strong> Taxi ~€38 + €12 × 2 = ca. €62</div>
-    <div class="prac-item"><strong>25. mai — Lugano → ZRH Flyplass:</strong> CHF 43 × 2 = CHF 86</div>
-    <div class="prac-item" style="font-weight:700;color:var(--city1);border-bottom:none;padding-top:8px;">Totalt: ~CHF 190 + ~€75</div>
-  </div>
-</div>
-
 <!-- PRACTICAL TAB -->
 <div id="v-prac" class="view">
   <div class="prac-section">
@@ -826,6 +784,36 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 </div>
 
 <script>
+// ===== MAP =====
+let mapInited = false;
+function initMap() {
+  if (mapInited) return;
+  mapInited = true;
+  const map = L.map('map', { zoomControl: true, scrollWheelZoom: false });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+    maxZoom: 13
+  }).addTo(map);
+  const hotels = [
+    { name: '🏙️ Viadukt Apartments', sub: 'Zürich · 21–22 mai', lat: 47.3855, lng: 8.5215, color: '#0D47A1', note: 'Im Viadukt, Zürich-Industrie' },
+    { name: '⛵ SALA-UNO', sub: 'Sala Comacina · 22–24 mai', lat: 45.9594, lng: 9.1526, color: '#00695C', note: 'Innsjekk 16:30 · Utsjekk 11:00' },
+    { name: '🌸 Hotel Victoria', sub: 'Lugano · 24–25 mai', lat: 46.0037, lng: 8.9528, color: '#B91C4A', note: 'Via Dufour 2, 6900 Lugano' }
+  ];
+  const pts = [];
+  hotels.forEach(h => {
+    const icon = L.divIcon({
+      className: '',
+      html: `<div style="background:${h.color};width:16px;height:16px;border-radius:50%;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.4);"></div>`,
+      iconSize: [16, 16], iconAnchor: [8, 8]
+    });
+    L.marker([h.lat, h.lng], { icon }).addTo(map)
+      .bindPopup(`<strong>${h.name}</strong><br><span style="color:#555;font-size:12px;">${h.sub}</span><br><span style="color:#888;font-size:11px;">${h.note}</span>`);
+    pts.push([h.lat, h.lng]);
+  });
+  L.polyline(pts, { color: '#E879A0', weight: 2.5, dashArray: '6,5', opacity: 0.8 }).addTo(map);
+  map.fitBounds(pts, { padding: [40, 40] });
+}
+
 // ===== DATA =====
 const HOTELS = {
   viadukt: {
@@ -1061,6 +1049,7 @@ function sw(id, btn) {
   btn.classList.add('on');
   document.getElementById('v-' + id).classList.add('on');
   window.scrollTo(0, 0);
+  if (id === 'map') setTimeout(initMap, 50);
 }
 
 function tToggle(header) {

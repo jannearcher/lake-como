@@ -208,15 +208,78 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
 <!-- MAP TAB -->
 <div id="v-map" class="view">
-  <div style="margin-bottom:10px;">
-    <div id="map"></div>
+  <div style="margin-bottom:10px;"><div id="map"></div></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px;font-size:11px;font-weight:600;color:var(--text2);">
+    <span style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:16px;height:3px;background:#1565C0;border-radius:2px;opacity:.75;"></span>Fly</span>
+    <span style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:16px;height:3px;background:#EB0000;border-radius:2px;"></span>Tog</span>
+    <span style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:16px;height:3px;background:#E65100;border-radius:2px;opacity:.75;"></span>S-Bahn / taxi</span>
+    <span>🔵 Flyplass &nbsp;🟩 Hotell &nbsp;🟥 Stasjon</span>
   </div>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:4px;padding:2px 0;">
-    <div style="display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;"><span style="width:12px;height:12px;border-radius:50%;background:#0D47A1;display:inline-block;"></span> Zürich · 21–22 mai</div>
-    <div style="display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;"><span style="width:12px;height:12px;border-radius:50%;background:#00695C;display:inline-block;"></span> Lake Como · 22–24 mai</div>
-    <div style="display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;"><span style="width:12px;height:12px;border-radius:50%;background:#B91C4A;display:inline-block;"></span> Lugano · 24–25 mai</div>
+
+  <div class="section-title">📍 Alle etapper</div>
+  <div class="prac-section" style="padding:10px 14px;">
+
+    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;min-width:26px;">✈️</span>
+      <div><strong>1 → 2 &nbsp; Oslo (OSL) → København (CPH)</strong><br>
+      <span style="font-size:12px;color:var(--text2);">SK459 · 21. mai · avg 16:00 · ank 17:10 · ~1t 10min</span></div>
+    </div>
+
+    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;min-width:26px;">✈️</span>
+      <div><strong>2 → 3 &nbsp; København (CPH) → Zürich (ZRH)</strong><br>
+      <span style="font-size:12px;color:var(--text2);">SK609 · 21. mai · avg 17:55 · ank 19:40 · 45 min mellomlanding</span></div>
+    </div>
+
+    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;min-width:26px;">🚇</span>
+      <div><strong>3 → 4 &nbsp; ZRH Flughafen → Viadukt Apartments</strong><br>
+      <span style="font-size:12px;color:var(--text2);">S-Bahn S16 → Hardbrücke · ~20 min · CHF 6.80 · kjøp i ZVV-appen</span></div>
+    </div>
+
+    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;min-width:26px;">🚂</span>
+      <div><strong>5 → 6 → 7 &nbsp; Zürich HB → Lugano → Como San Giovanni</strong><br>
+      <span style="font-size:12px;color:var(--text2);">22. mai · SBB IC avg ~11:30 → Lugano ~13:00, bytte Trenitalia → Como ~13:55 · Book SBB-appen</span></div>
+    </div>
+
+    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;min-width:26px;">🚕</span>
+      <div><strong>7 → 8 &nbsp; Como San Giovanni → SALA-UNO</strong><br>
+      <span style="font-size:12px;color:var(--text2);">Buss SP18 (retning Menaggio) ~45 min, eller taxi ~€38 · anbefalt med bagasje</span></div>
+    </div>
+
+    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;min-width:26px;">🚕</span>
+      <div><strong>8 → 9 &nbsp; SALA-UNO → Como San Giovanni</strong><br>
+      <span style="font-size:12px;color:var(--text2);">24. mai · Taxi ~€38, ~30 min · book kvelden før via hotellet</span></div>
+    </div>
+
+    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;min-width:26px;">🚂</span>
+      <div><strong>9 → 10 → 11 &nbsp; Como → Lugano → Hotel Victoria</strong><br>
+      <span style="font-size:12px;color:var(--text2);">Trenitalia regionaltog ~40 min · €12 / person · 5 min gange til hotellet</span></div>
+    </div>
+
+    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;min-width:26px;">🚂</span>
+      <div><strong>12 → 13 &nbsp; Lugano HB → Zürich HB</strong><br>
+      <span style="font-size:12px;color:var(--text2);">25. mai · SBB IC avg senest 17:00 · ank ~18:55 · CHF 43 / person · Book SBB-appen</span></div>
+    </div>
+
+    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;min-width:26px;">🚇</span>
+      <div><strong>13 → 14 &nbsp; Zürich HB → ZRH Flughafen</strong><br>
+      <span style="font-size:12px;color:var(--text2);">S-Bahn S16/S2 · 12 min · spor 21–24 · inkludert i Lugano-billetten</span></div>
+    </div>
+
+    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;border-bottom:none;">
+      <span style="font-size:18px;min-width:26px;">✈️</span>
+      <div><strong>14 → 15 &nbsp; Zürich (ZRH) → Oslo (OSL)</strong><br>
+      <span style="font-size:12px;color:var(--text2);">SK4842 · 25. mai · avg 21:35 · ank ~00:05 · innsjekk senest 19:35</span></div>
+    </div>
+
   </div>
-  <div id="map-card" class="prac-section" style="display:none;"></div>
 </div>
 
 <!-- RESTAURANTS TAB -->
@@ -869,73 +932,91 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 <script>
 // ===== MAP =====
 let mapInited = false;
-function initMap() {
+async function fetchRoute(a, b) {
+  const url = `https://router.project-osrm.org/route/v1/driving/${a[1]},${a[0]};${b[1]},${b[0]}?overview=full&geometries=geojson`;
+  try {
+    const d = await (await fetch(url)).json();
+    if (d.routes && d.routes[0])
+      return d.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+  } catch(e) {}
+  return [a, b];
+}
+
+function numIcon(n, bg, shape) {
+  const r = shape === 'square' ? '4px' : '50%';
+  return L.divIcon({ className: '',
+    html: `<div style="background:${bg};color:#fff;font-size:11px;font-weight:700;width:24px;height:24px;border-radius:${r};border:2.5px solid white;box-shadow:0 2px 6px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;">${n}</div>`,
+    iconSize:[24,24], iconAnchor:[12,12] });
+}
+
+async function initMap() {
   if (mapInited) return;
   mapInited = true;
 
   const map = L.map('map', { zoomControl: true, scrollWheelZoom: false });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '\u00a9 <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a>',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
     maxZoom: 15
   }).addTo(map);
 
-  const W = {
-    osl:    { ll: [60.1939, 11.1004], label: '\u2708\ufe0f Oslo (OSL)', note: 'SK459 avgang 16:00 \u00b7 21. mai', type: 'airport' },
-    cph:    { ll: [55.6180, 12.6561], label: '\u2708\ufe0f K\u00f8benhavn (CPH)', note: 'Mellomlanding 45 min \u00b7 SK609 avgang 17:55', type: 'airport' },
-    zrh:    { ll: [47.4647,  8.5492], label: '\u2708\ufe0f Z\u00fcrich (ZRH)', note: 'Ankomst 19:40 \u00b7 S-Bahn S16 til sentrum', type: 'airport' },
-    viadukt:{ ll: [47.3855,  8.5215], label: '\U0001f3e8 Viadukt Apartments', note: 'Z\u00fcrich \u00b7 21\u201322 mai \u00b7 1 natt', type: 'hotel', color: '#0D47A1' },
-    zrhHB:  { ll: [47.3779,  8.5401], label: '\U0001f686 Z\u00fcrich HB', note: 'Avgang ~11:30 \u00b7 IC mot Lugano/Milano', type: 'station' },
-    luganoS:{ ll: [46.0052,  8.9468], label: '\U0001f686 Lugano stasjon', note: 'Bytte til Trenitalia mot Como', type: 'station' },
-    comoS:  { ll: [45.8099,  9.0799], label: '\U0001f686 Como San Giovanni', note: 'Buss SP18 eller taxi til Sala Comacina', type: 'station' },
-    salauno:{ ll: [45.9594,  9.1526], label: '\U0001f3e8 SALA-UNO', note: 'Sala Comacina \u00b7 22\u201324 mai \u00b7 2 netter', type: 'hotel', color: '#00695C' },
-    victoria:{ll: [46.0037,  8.9528], label: '\U0001f3e8 Hotel Victoria', note: 'Lugano \u00b7 24\u201325 mai \u00b7 1 natt', type: 'hotel', color: '#B91C4A' },
-    zrhBack:{ ll: [47.4650,  8.5495], label: '\u2708\ufe0f Z\u00fcrich (ZRH)', note: 'SK4842 avgang 21:35 \u00b7 25. mai', type: 'airport' },
-    oslBack:{ ll: [60.1942, 11.1007], label: '\u2708\ufe0f Oslo (OSL)', note: 'Ankomst ~00:05 \u00b7 26. mai', type: 'airport' }
-  };
+  // ── Stops in journey order ──────────────────────────────────────────
+  const stops = [
+    { n:1,  ll:[60.1939,11.1004], label:'✈️ Oslo Gardermoen (OSL)', note:'SK459 avgang 16:00 · 21. mai',           type:'airport' },
+    { n:2,  ll:[55.6180,12.6561], label:'✈️ København (CPH)',       note:'Mellomlanding 45 min · SK609 avg 17:55', type:'airport' },
+    { n:3,  ll:[47.4647, 8.5492], label:'✈️ Zürich (ZRH)',          note:'Ankomst 19:40 · S-Bahn S16 til sentrum', type:'airport' },
+    { n:4,  ll:[47.3855, 8.5215], label:'🏨 Viadukt Apartments',    note:'Zürich · 21–22 mai · 1 natt',            type:'hotel', color:'#0D47A1' },
+    { n:5,  ll:[47.3779, 8.5401], label:'🚂 Zürich HB',             note:'Avgang ~11:30 · IC mot Lugano · 22. mai',type:'station' },
+    { n:6,  ll:[46.0052, 8.9468], label:'🚂 Lugano stasjon',        note:'Bytte Trenitalia mot Como',               type:'station' },
+    { n:7,  ll:[45.8099, 9.0799], label:'🚂 Como San Giovanni',     note:'Buss SP18 / taxi til Sala Comacina',      type:'station' },
+    { n:8,  ll:[45.9594, 9.1526], label:'🏨 SALA-UNO',              note:'Sala Comacina · 22–24 mai · 2 netter',   type:'hotel', color:'#00695C' },
+    { n:9,  ll:[45.8099, 9.0799], label:'🚂 Como San Giovanni',     note:'Taxi til stasjonen · 24. mai',            type:'station' },
+    { n:10, ll:[46.0052, 8.9468], label:'🚂 Lugano stasjon',        note:'Av Trenitalia fra Como',                  type:'station' },
+    { n:11, ll:[46.0037, 8.9528], label:'🏨 Hotel Victoria',        note:'Lugano · 24–25 mai · 1 natt',            type:'hotel', color:'#B91C4A' },
+    { n:12, ll:[46.0052, 8.9468], label:'🚂 Lugano stasjon',        note:'SBB IC avgang senest 17:00 · 25. mai',   type:'station' },
+    { n:13, ll:[47.3779, 8.5401], label:'🚂 Zürich HB',             note:'Ankomst ~18:55 · S-Bahn til flyplass',   type:'station' },
+    { n:14, ll:[47.4647, 8.5492], label:'✈️ Zürich (ZRH)',          note:'SK4842 avgang 21:35 · 25. mai',          type:'airport' },
+    { n:15, ll:[60.1939,11.1004], label:'✈️ Oslo Gardermoen (OSL)', note:'Ankomst ~00:05 · 26. mai',               type:'airport' }
+  ];
 
-  const flightStyle = { color: '#1565C0', weight: 2,   dashArray: '7,5', opacity: 0.75 };
-  const trainStyle  = { color: '#EB0000', weight: 2.5,  opacity: 0.9 };
-  const localStyle  = { color: '#E65100', weight: 2,   dashArray: '3,6', opacity: 0.75 };
-
-  L.polyline([W.osl.ll,     W.cph.ll],      flightStyle).addTo(map);
-  L.polyline([W.cph.ll,     W.zrh.ll],      flightStyle).addTo(map);
-  L.polyline([W.zrh.ll,     W.viadukt.ll],  localStyle).addTo(map);
-  L.polyline([W.viadukt.ll, W.zrhHB.ll],    localStyle).addTo(map);
-  L.polyline([W.zrhHB.ll,   W.luganoS.ll],  trainStyle).addTo(map);
-  L.polyline([W.luganoS.ll, W.comoS.ll],    trainStyle).addTo(map);
-  L.polyline([W.comoS.ll,   W.salauno.ll],  localStyle).addTo(map);
-  L.polyline([W.salauno.ll, W.comoS.ll],    localStyle).addTo(map);
-  L.polyline([W.comoS.ll,   W.luganoS.ll],  trainStyle).addTo(map);
-  L.polyline([W.luganoS.ll, W.victoria.ll], localStyle).addTo(map);
-  L.polyline([W.victoria.ll,W.luganoS.ll],  localStyle).addTo(map);
-  L.polyline([W.luganoS.ll, W.zrhHB.ll],    trainStyle).addTo(map);
-  L.polyline([W.zrhHB.ll,   W.zrhBack.ll],  localStyle).addTo(map);
-  L.polyline([W.zrhBack.ll, W.oslBack.ll],  flightStyle).addTo(map);
-
-  function airportIcon() {
-    return L.divIcon({ className: '',
-      html: '<div style="background:#1565C0;color:white;font-size:14px;width:28px;height:28px;border-radius:50%;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;">\u2708</div>',
-      iconSize:[28,28], iconAnchor:[14,14] });
-  }
-  function hotelIcon(color) {
-    return L.divIcon({ className: '',
-      html: '<div style="background:'+color+';color:white;font-size:13px;width:26px;height:26px;border-radius:50%;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;">H</div>',
-      iconSize:[26,26], iconAnchor:[13,13] });
-  }
-  function stationIcon() {
-    return L.divIcon({ className: '',
-      html: '<div style="background:#EB0000;color:white;font-size:11px;width:20px;height:20px;border-radius:4px;border:2px solid white;box-shadow:0 2px 4px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font-weight:700;">S</div>',
-      iconSize:[20,20], iconAnchor:[10,10] });
-  }
-
-  Object.values(W).forEach(w => {
-    const icon = w.type==='airport' ? airportIcon() : w.type==='hotel' ? hotelIcon(w.color) : stationIcon();
-    L.marker(w.ll, {icon}).addTo(map)
-      .bindPopup('<strong>'+w.label+'</strong><br><span style="font-size:12px;color:#555;">'+w.note+'</span>');
+  // ── Draw markers ────────────────────────────────────────────────────
+  stops.forEach(s => {
+    const bg = s.type==='airport' ? '#1565C0' : s.type==='hotel' ? s.color : '#EB0000';
+    const shape = s.type==='station' ? 'square' : 'circle';
+    L.marker(s.ll, { icon: numIcon(s.n, bg, shape) }).addTo(map)
+      .bindPopup(`<strong>${s.label}</strong><br><span style="font-size:12px;color:#555;">${s.note}</span>`);
   });
 
-  const tripBounds = [W.zrh.ll, W.viadukt.ll, W.salauno.ll, W.victoria.ll, W.comoS.ll, W.luganoS.ll];
-  map.fitBounds(tripBounds, { padding: [30, 30] });
+  // ── Flight legs (straight lines) ────────────────────────────────────
+  const flt = { color:'#1565C0', weight:2, dashArray:'7,5', opacity:0.7 };
+  L.polyline([stops[0].ll, stops[1].ll], flt).addTo(map);   // OSL→CPH
+  L.polyline([stops[1].ll, stops[2].ll], flt).addTo(map);   // CPH→ZRH
+  L.polyline([stops[13].ll,stops[14].ll],flt).addTo(map);   // ZRH→OSL return
+
+  // ── Ground legs via OSRM (road-following) ───────────────────────────
+  const trn = { color:'#EB0000', weight:2.5, opacity:0.9 };
+  const loc = { color:'#E65100', weight:2, dashArray:'3,6', opacity:0.8 };
+
+  const legs = [
+    [stops[2].ll,  stops[3].ll,  loc], // ZRH airport → Viadukt
+    [stops[3].ll,  stops[4].ll,  loc], // Viadukt → ZRH HB
+    [stops[4].ll,  stops[5].ll,  trn], // ZRH HB → Lugano (train)
+    [stops[5].ll,  stops[6].ll,  trn], // Lugano → Como (train)
+    [stops[6].ll,  stops[7].ll,  loc], // Como → Sala Comacina (taxi)
+    [stops[8].ll,  stops[9].ll,  loc], // Sala → Como (taxi back)
+    [stops[9].ll,  stops[10].ll, trn], // Como → Lugano (train)
+    [stops[10].ll, stops[11].ll, loc], // Lugano station → Hotel Victoria
+    [stops[11].ll, stops[12].ll, loc], // Hotel → Lugano HB
+    [stops[12].ll, stops[13].ll, trn], // Lugano → ZRH HB (train)
+    [stops[13].ll, stops[14].ll, loc], // ZRH HB → ZRH airport (S-Bahn) — index 14 is ZRH airport
+  ];
+
+  await Promise.all(legs.map(async ([a, b, style]) => {
+    const coords = await fetchRoute(a, b);
+    L.polyline(coords, style).addTo(map);
+  }));
+
+  // Fit to trip area (excluding Norway/CPH)
+  map.fitBounds([stops[2].ll, stops[3].ll, stops[7].ll, stops[11].ll, stops[6].ll, stops[5].ll], { padding:[30,30] });
 }
 
 // ===== DATA =====

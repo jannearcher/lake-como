@@ -7,11 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Como 2026">
 <title>🇨🇭🇮🇹 Zürich & Lake Como · Mai 2026</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-#map { height: 340px; border-radius: 10px; z-index: 1; }
-
 :root {
   --text: #1a1a1a; --text2: #555; --text3: #888;
   --border: #e0e0e0; --border2: #bbb;
@@ -187,10 +183,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="tab on" onclick="sw('tl',this)">📅 Tidslinje</div>
     <div class="tab" onclick="sw('map',this)">🗺 Kart</div>
     <div class="tab" onclick="sw('food',this)">🍝 Restauranter</div>
-    <div class="tab" onclick="sw('fly',this)">✈️ Fly</div>
+    <div class="tab" onclick="sw('fly',this)">✈️ Avreise</div>
     <div class="tab" onclick="sw('trans',this)">🚂 Transport</div>
     <div class="tab" onclick="sw('spec',this)">🍨 Spesialiteter</div>
-    <div class="tab" onclick="sw('book',this)">✅ Booking</div>
     <div class="tab" onclick="sw('prac',this)">📋 Praktisk</div>
   </div>
 </div>
@@ -208,77 +203,62 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
 <!-- MAP TAB -->
 <div id="v-map" class="view">
-  <div style="margin-bottom:10px;"><div id="map"></div></div>
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px;font-size:11px;font-weight:600;color:var(--text2);">
-    <span style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:16px;height:3px;background:#1565C0;border-radius:2px;opacity:.75;"></span>Fly</span>
-    <span style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:16px;height:3px;background:#EB0000;border-radius:2px;"></span>Tog</span>
-    <span style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:16px;height:3px;background:#E65100;border-radius:2px;opacity:.75;"></span>S-Bahn / taxi</span>
-    <span>🔵 Flyplass &nbsp;🟩 Hotell &nbsp;🟥 Stasjon</span>
+  <div class="map-outer">
+    <svg class="map-svg" viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg">
+      <!-- Simplified Switzerland/N.Italy region outline -->
+      <rect width="400" height="340" fill="#EAF4FB" rx="8"/>
+      <!-- Switzerland rough outline -->
+      <path d="M60 100 L100 80 L140 75 L180 70 L230 68 L270 75 L300 90 L320 105 L315 130 L300 145 L310 165 L290 180 L260 190 L250 210 L230 225 L210 230 L190 235 L170 230 L150 220 L130 210 L110 195 L90 175 L75 155 L65 130 Z" fill="#D0E8F5" stroke="#9DC8E0" stroke-width="1.5"/>
+      <!-- Northern Italy rough area -->
+      <path d="M150 220 L170 230 L190 235 L210 230 L230 225 L250 210 L260 230 L255 255 L240 270 L220 280 L200 285 L180 280 L160 265 L148 245 Z" fill="#E8F5E0" stroke="#A8C890" stroke-width="1.5"/>
+      <!-- Lake Como shape (simplified) -->
+      <path d="M215 235 L220 248 L217 265 L215 275 L213 265 L210 248 Z" fill="#85C1E9" stroke="#5DADE2" stroke-width="1"/>
+      <path d="M210 248 L202 258 L196 265 L193 260 L198 252 L207 247 Z" fill="#85C1E9" stroke="#5DADE2" stroke-width="0.8"/>
+      <!-- Lake Zürich small -->
+      <ellipse cx="195" cy="120" rx="10" ry="6" fill="#85C1E9" stroke="#5DADE2" stroke-width="0.8"/>
+      <!-- Lake Lugano small -->
+      <ellipse cx="220" cy="218" rx="12" ry="5" fill="#85C1E9" stroke="#5DADE2" stroke-width="0.8"/>
+      <!-- Route line: Zürich → Lake Como → Lugano -->
+      <path d="M193 118 L215 240 L220 217" stroke="#E879A0" stroke-width="1.8" stroke-dasharray="5,4" fill="none" opacity="0.8"/>
+      <!-- Dots on route -->
+      <circle cx="193" cy="118" r="3" fill="#E879A0" opacity="0.5"/>
+      <circle cx="215" cy="240" r="3" fill="#E879A0" opacity="0.5"/>
+      <circle cx="220" cy="217" r="3" fill="#E879A0" opacity="0.5"/>
+      <!-- Zürich pin -->
+      <g onclick="showMap('zurich')" style="cursor:pointer">
+        <circle cx="193" cy="118" r="24" fill="#E3F2FD" stroke="#1E88E5" stroke-width="1.5" opacity="0.95"/>
+        <text x="193" y="113" text-anchor="middle" font-size="14">🏙️</text>
+        <text x="193" y="124" font-size="9" fill="#0D47A1" font-weight="700" text-anchor="middle">ZÜRICH</text>
+        <text x="193" y="133" font-size="8" fill="#1E88E5" text-anchor="middle">21–22 mai</text>
+      </g>
+      <!-- Lake Como pin -->
+      <g onclick="showMap('como')" style="cursor:pointer">
+        <circle cx="213" cy="255" r="24" fill="#E0F2F1" stroke="#00897B" stroke-width="1.5" opacity="0.95"/>
+        <text x="213" y="250" text-anchor="middle" font-size="14">⛵</text>
+        <text x="213" y="261" font-size="8.5" fill="#00695C" font-weight="700" text-anchor="middle">LAKE COMO</text>
+        <text x="213" y="270" font-size="8" fill="#00897B" text-anchor="middle">22–24 mai</text>
+      </g>
+      <!-- Lugano pin -->
+      <g onclick="showMap('lugano')" style="cursor:pointer">
+        <circle cx="230" cy="210" r="22" fill="#FDE7F0" stroke="#E879A0" stroke-width="1.5" opacity="0.95"/>
+        <text x="230" y="205" text-anchor="middle" font-size="13">🌸</text>
+        <text x="230" y="216" font-size="9" fill="#B91C4A" font-weight="700" text-anchor="middle">LUGANO</text>
+        <text x="230" y="224" font-size="8" fill="#E879A0" text-anchor="middle">24–25 mai</text>
+      </g>
+      <!-- Labels -->
+      <text x="150" y="140" font-size="9" fill="#888" font-style="italic">Sveits</text>
+      <text x="195" y="295" font-size="9" fill="#888" font-style="italic">Nord-Italia</text>
+      <text x="30" y="95" font-size="9" fill="#666">Frankrike</text>
+      <text x="330" y="90" font-size="9" fill="#666">Østerrike</text>
+    </svg>
   </div>
-
-  <div class="section-title">📍 Alle etapper</div>
-  <div class="prac-section" style="padding:10px 14px;">
-
-    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
-      <span style="font-size:18px;min-width:26px;">✈️</span>
-      <div><strong>1 → 2 &nbsp; Oslo (OSL) → København (CPH)</strong><br>
-      <span style="font-size:12px;color:var(--text2);">SK459 · 21. mai · avg 16:00 · ank 17:10 · ~1t 10min</span></div>
-    </div>
-
-    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
-      <span style="font-size:18px;min-width:26px;">✈️</span>
-      <div><strong>2 → 3 &nbsp; København (CPH) → Zürich (ZRH)</strong><br>
-      <span style="font-size:12px;color:var(--text2);">SK609 · 21. mai · avg 17:55 · ank 19:40 · 45 min mellomlanding</span></div>
-    </div>
-
-    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
-      <span style="font-size:18px;min-width:26px;">🚇</span>
-      <div><strong>3 → 4 &nbsp; ZRH Flughafen → Viadukt Apartments</strong><br>
-      <span style="font-size:12px;color:var(--text2);">S-Bahn S16 → Hardbrücke · ~20 min · CHF 6.80 · kjøp i ZVV-appen</span></div>
-    </div>
-
-    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
-      <span style="font-size:18px;min-width:26px;">🚂</span>
-      <div><strong>5 → 6 → 7 &nbsp; Zürich HB → Lugano → Como San Giovanni</strong><br>
-      <span style="font-size:12px;color:var(--text2);">22. mai · SBB IC avg ~11:30 → Lugano ~13:00, bytte Trenitalia → Como ~13:55 · Book SBB-appen</span></div>
-    </div>
-
-    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
-      <span style="font-size:18px;min-width:26px;">🚕</span>
-      <div><strong>7 → 8 &nbsp; Como San Giovanni → SALA-UNO</strong><br>
-      <span style="font-size:12px;color:var(--text2);">Buss SP18 (retning Menaggio) ~45 min, eller taxi ~€38 · anbefalt med bagasje</span></div>
-    </div>
-
-    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
-      <span style="font-size:18px;min-width:26px;">🚕</span>
-      <div><strong>8 → 9 &nbsp; SALA-UNO → Como San Giovanni</strong><br>
-      <span style="font-size:12px;color:var(--text2);">24. mai · Taxi ~€38, ~30 min · book kvelden før via hotellet</span></div>
-    </div>
-
-    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
-      <span style="font-size:18px;min-width:26px;">🚂</span>
-      <div><strong>9 → 10 → 11 &nbsp; Como → Lugano → Hotel Victoria</strong><br>
-      <span style="font-size:12px;color:var(--text2);">Trenitalia regionaltog ~40 min · €12 / person · 5 min gange til hotellet</span></div>
-    </div>
-
-    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
-      <span style="font-size:18px;min-width:26px;">🚂</span>
-      <div><strong>12 → 13 &nbsp; Lugano HB → Zürich HB</strong><br>
-      <span style="font-size:12px;color:var(--text2);">25. mai · SBB IC avg senest 17:00 · ank ~18:55 · CHF 43 / person · Book SBB-appen</span></div>
-    </div>
-
-    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;">
-      <span style="font-size:18px;min-width:26px;">🚇</span>
-      <div><strong>13 → 14 &nbsp; Zürich HB → ZRH Flughafen</strong><br>
-      <span style="font-size:12px;color:var(--text2);">S-Bahn S16/S2 · 12 min · spor 21–24 · inkludert i Lugano-billetten</span></div>
-    </div>
-
-    <div class="prac-item" style="display:flex;gap:10px;align-items:flex-start;border-bottom:none;">
-      <span style="font-size:18px;min-width:26px;">✈️</span>
-      <div><strong>14 → 15 &nbsp; Zürich (ZRH) → Oslo (OSL)</strong><br>
-      <span style="font-size:12px;color:var(--text2);">SK4842 · 25. mai · avg 21:35 · ank ~00:05 · innsjekk senest 19:35</span></div>
-    </div>
-
+  <div class="map-legend">
+    <div class="map-leg-item"><div class="map-leg-dot" style="background:var(--city1)"></div> Zürich</div>
+    <div class="map-leg-item"><div class="map-leg-dot" style="background:var(--city2)"></div> Lake Como</div>
+    <div class="map-leg-item"><div class="map-leg-dot" style="background:var(--city3)"></div> Lugano</div>
+  </div>
+  <div id="map-card">
+    <div style="color:var(--text3);font-size:13px;text-align:center;padding:10px;">Trykk på en by på kartet for detaljer.</div>
   </div>
 </div>
 
@@ -305,34 +285,123 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="rest-tags"><span class="rest-tag">Lunsj & middag</span><span class="rest-tag">Reservasjon anbefalt</span></div>
   </div>
 
-  <div class="section-title">🇮🇹 Lake Como — Varenna & Sala Comacina</div>
+  <div class="section-title">🇮🇹 Lake Como — Anbefalt av huseieren</div>
+
+  <div class="rest-card">
+    <div class="rest-name">Max's Bar</div>
+    <span class="rest-city city2">Sala Comacina — Rett ved huset</span>
+    <div class="rest-type">☕ Bar — kaffe, vin, aperitivo</div>
+    <div class="rest-desc">Ligger rett ved siden av SALA-UNO. Perfekt for morgenkaffe eller et glass vin etter en dag på vannet — her møter du de ekte lokale innbyggerne i Sala.</div>
+    <div class="rest-order">💡 Best: Morgenespresso og cornetto, eller Aperol Spritz i solnedgangen. Ingen reservasjon nødvendig.</div>
+    <div class="rest-tags"><span class="rest-tag">Gangavstand</span><span class="rest-tag">Lokalt treffpunkt</span></div>
+  </div>
+
+  <div class="rest-card">
+    <div class="rest-name">Le Tout Paris</div>
+    <span class="rest-city city2">Sala Comacina — Lokalt</span>
+    <div class="rest-type">🥐 Kafé — kaffe, croissant, vin</div>
+    <div class="rest-desc">Sjarmerende sted for en rolig frokost eller ettermiddagskaffe. God atmosfære og behagelig for å starte dagen.</div>
+    <div class="rest-order">💡 Best: Croissant og kaffe til frokost, eller et glass vin som aperitivo.</div>
+    <div class="rest-tags"><span class="rest-tag">Frokost</span><span class="rest-tag">Gangavstand</span></div>
+  </div>
+
+  <div class="rest-card">
+    <div class="rest-name">Lido di Sala</div>
+    <span class="rest-city city2">Sala Comacina — Sjøfronten</span>
+    <div class="rest-type">🍕 Pizza & sandwicher</div>
+    <div class="rest-desc">Avslappet og uformelt sted — perfekt for en enkel lunsj ved vannet etter et morgenbad eller kajakk. God pizza og lett mat.</div>
+    <div class="rest-order">💡 Best: Pizza til lunsj eller en enkel sandwich. Ta med mat og sitt ved sjøen.</div>
+    <div class="rest-tags"><span class="rest-tag">Ingen reservasjon</span><span class="rest-tag">Lunsj</span></div>
+  </div>
 
   <div class="rest-card rest-must">
-    <div class="rest-must-badge">⭐ Bestill på forhånd</div>
-    <div class="rest-name">Il Cavatappi</div>
-    <span class="rest-city city2">Varenna — Sentrum</span>
-    <div class="rest-type">🍝 Norditalienisk, fersk pasta</div>
-    <div class="rest-desc">Intimt og romantisk familiedrevet sted i Varennas historiske sentrum. Hjemmelaget pasta og lokal innsjøfisk. Bordene går raskt.</div>
-    <div class="rest-order">💡 Best: Ferskpasta med innsjøfisk (persico/agone), hjemmelaget tiramisu. Bestill bord minst 2 dager i forveien.</div>
-    <div class="rest-tags"><span class="rest-tag">Reservasjon nødvendig</span><span class="rest-tag">Middag</span></div>
+    <div class="rest-must-badge">⭐ Bestill i forkant</div>
+    <div class="rest-name">Tirlindana</div>
+    <span class="rest-city city2">Sala Comacina — Utsikt over innsjøen</span>
+    <div class="rest-type">🍝 Familiedrevet restaurant med fantastisk utsikt</div>
+    <div class="rest-desc">Deilig familiedrevet restaurant med en av de beste utsiktene over innsjøen. Huseieren anbefaler dette spesielt — og reservasjon er nødvendig.</div>
+    <div class="rest-order">💡 Best: Spør etter dagens fisk og lokale pastaretter. Be om et bord med innsjøutsikt når du reserverer.</div>
+    <div class="rest-tags"><span class="rest-tag">Reservasjon nødvendig</span><span class="rest-tag">Middag</span><span class="rest-tag">Huseierens favoritt</span></div>
   </div>
 
   <div class="rest-card">
-    <div class="rest-name">Ristorante Borgovino</div>
-    <span class="rest-city city2">Varenna — Havnen</span>
-    <div class="rest-type">🐟 Tradisjonell innsjømat & vin</div>
-    <div class="rest-desc">Klassisk comoesisk kjøkken med utsikt over sjøen. Spesialitet på lokal innsjøfisk og regionale viner fra Valtellina-dalen.</div>
-    <div class="rest-order">💡 Best: Missoltini con polenta (den lokale spesialiteten), fritert agone-fisk, Sassella-vin.</div>
-    <div class="rest-tags"><span class="rest-tag">Havneutsikt</span><span class="rest-tag">Bestill frem</span></div>
+    <div class="rest-name">Al Vecchio Bacucco</div>
+    <span class="rest-city city2">Sala Comacina — 14 min gange</span>
+    <div class="rest-type">🍽️ Tradisjonsk italiensk med moderne vri</div>
+    <div class="rest-desc">Tradisjonelle italienske retter med en moderne vri, laget av friske, lokale råvarer. Gangavstand fra huset og verdt turen.</div>
+    <div class="rest-order">💡 Best: Spør etter dagsmeny — de bruker lokale og sesongbaserte ingredienser. Reservasjon anbefalt.</div>
+    <div class="rest-tags"><span class="rest-tag">Reservasjon anbefalt</span><span class="rest-tag">14 min gange</span></div>
+  </div>
+
+  <div class="rest-card rest-must">
+    <div class="rest-must-badge">⭐ Bestill i forkant</div>
+    <div class="rest-name">Al Véluu</div>
+    <span class="rest-city city2">Griante — 15 min med bil</span>
+    <div class="rest-type">🏔️ Spektakulær utsikt fra fjellsiden — prisig</div>
+    <div class="rest-desc">Spektakulær utsikt over innsjøen fra fjellsiden. Vertinnen Luca forteller historier om de friske ingrediensene fra sin egen hage. Huseierens personlige favoritt. Noe dyrere, men en opplevelse utenom det vanlige.</div>
+    <div class="rest-order">💡 Best: Fiorentina-biff med zucchini-fries — huseierens anbefaling! Bestill bord på forhånd.</div>
+    <div class="rest-tags"><span class="rest-tag">Reservasjon nødvendig</span><span class="rest-tag">Pricey</span><span class="rest-tag">Huseierens favoritt</span></div>
+  </div>
+
+  <div class="section-title">🍕 Lenno (20–30 min gange fra huset)</div>
+
+  <div class="rest-card">
+    <div class="rest-name">Il Grifo</div>
+    <span class="rest-city city2">Lenno — 20 min gange / 4 min med bil</span>
+    <div class="rest-type">🍝 Tradisjonell italiensk mat</div>
+    <div class="rest-desc">Populær restaurant som serverer deilig, tradisjonell italiensk mat. Perfekt lunsjstopp etter Greenway Walk mot Lenno.</div>
+    <div class="rest-order">💡 Best: Tradisjonell pasta og lokale kjøttretter. Ankommer du etter Greenway Walk, er du sulten — spis godt!</div>
+    <div class="rest-tags"><span class="rest-tag">Lunsj & middag</span><span class="rest-tag">Populær</span></div>
+  </div>
+
+  <div class="rest-card rest-must">
+    <div class="rest-must-badge">⭐ Ikke gå glipp av</div>
+    <div class="rest-name">Bar Pasticceria Tremezzina</div>
+    <span class="rest-city city2">Lenno — 30 min gange / 8 min med bil</span>
+    <div class="rest-type">🥐 Elsket lokalt bakeri</div>
+    <div class="rest-desc">Et elsket lokalt bakeri der du sitter blant ekte lokale italienere. Perfekt for en rolig frokostpause under Greenway Walk.</div>
+    <div class="rest-order">💡 Must-try: Pistasj-croissant og brioche — begge er fantastiske ifølge huseieren. Ikke overses!</div>
+    <div class="rest-tags"><span class="rest-tag">Frokost</span><span class="rest-tag">Lokalt ikon</span></div>
+  </div>
+
+  <div class="section-title">💎 Spesielle opplevelser (prisige, bestill tidlig)</div>
+
+  <div class="rest-card">
+    <div class="rest-name">Da Giacomo al Lago</div>
+    <span class="rest-city city2">Grand Hotel Tremezzo — 13 min med bil</span>
+    <div class="rest-type">🍸 Klassisk italiensk eleganse</div>
+    <div class="rest-desc">Det ypperste av klassisk italiensk eleganse. Del av det ikoniske 5-stjernes Grand Hotel Tremezzo, med fargerik stripete interiør og strandvibber. Godt for en cocktail, lunsj eller middag.</div>
+    <div class="rest-order">💡 Best: En cocktail på terrassen ved vannet er selve Como-opplevelsen. Reservasjon anbefalt for middag.</div>
+    <div class="rest-tags"><span class="rest-tag">Reservasjon anbefalt</span><span class="rest-tag">Pricey</span><span class="rest-tag">Cocktail/lunsj/middag</span></div>
   </div>
 
   <div class="rest-card">
-    <div class="rest-name">Trattoria la Contrada</div>
-    <span class="rest-city city2">Sala Comacina — Nær SALA-UNO</span>
-    <div class="rest-type">🫒 Lokal trattoria</div>
-    <div class="rest-desc">Koselig lokal trattoria i Sala Comacina, gangavstand fra overnattingsstedet. Enkle, gode råvarer og vennlig betjening.</div>
-    <div class="rest-order">💡 Best: Dagens fiskemeny, pasta al lago, lokalt produsert olivenolje på brødet.</div>
-    <div class="rest-tags"><span class="rest-tag">Gangavstand</span><span class="rest-tag">Familiedrevet</span></div>
+    <div class="rest-name">MUSA</div>
+    <span class="rest-city city2">5-stjernes hotell — Lokal</span>
+    <div class="rest-type">🍽️ Gastronomisk restaurant + mandagspizzakvelder</div>
+    <div class="rest-desc">Gastronomisk utmerket restaurant i et 5-stjerners hotell — noe dyrere til vanlig. Men på mandagskvelder tilbyr de velpriste pizzakvelder som er svært populære!</div>
+    <div class="rest-order">💡 Tips: Kom på mandagskveld for pizza til en fornuftig pris. Ellers: Spør etter dagens sesongmeny.</div>
+    <div class="rest-tags"><span class="rest-tag">Mandag = pizzakveld</span><span class="rest-tag">Pricey ellers</span></div>
+  </div>
+
+  <div class="section-title">🚗 Argegno (7–8 min med bil)</div>
+
+  <div class="rest-card">
+    <div class="rest-name">Barchetta & Café Colombo</div>
+    <span class="rest-city city2">Argegno — 8 min med bil</span>
+    <div class="rest-type">☕ Frokostbar med innsjøutsikt</div>
+    <div class="rest-desc">Uformelle frokostbarer i hjertet av Argegno — perfekt for en cappuccino og croissant mens du nyter utsikten over innsjøen blant lokalbefolkningen.</div>
+    <div class="rest-order">💡 Best: Cappuccino og cornetto til frokost. Enkelt, lokalt og autentisk.</div>
+    <div class="rest-tags"><span class="rest-tag">Frokost</span><span class="rest-tag">Uformelt</span></div>
+  </div>
+
+  <div class="rest-card">
+    <div class="rest-name">Piazzetta</div>
+    <span class="rest-city city2">Argegno — 7 min med bil</span>
+    <div class="rest-type">🍕 Raffinert italiensk & pizza</div>
+    <div class="rest-desc">Sjarmerende restaurant i den pittoreske byen Argegno med raffinert italiensk mat og god pizza. Fin atmosfære og hyggelig innsjømiljø.</div>
+    <div class="rest-order">💡 Best: Pizza i uformell setting eller pastaretter fra den lokale menyen.</div>
+    <div class="rest-tags"><span class="rest-tag">Lunsj & middag</span></div>
   </div>
 
   <div class="section-title">🇨🇭 Lugano</div>
@@ -359,109 +428,39 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
 <!-- FLIGHTS TAB -->
 <div id="v-fly" class="view">
-  <div class="section-title">✈️ Utreise — Torsdag 21. mai 2026</div>
+  <div class="section-title">✈️ Avreise</div>
 
-  <!-- Outbound leg 1: OSL → CPH -->
   <div class="flight-card" style="border-color:var(--city1-bd);">
-    <div style="font-size:11px;font-weight:700;color:var(--city1);margin-bottom:6px;">SK459 &nbsp;·&nbsp; OSL → CPH</div>
-    <div class="flight-route">
-      <span>OSL</span>
-      <span class="flight-arrow">→</span>
-      <span>CPH</span>
-    </div>
-    <div class="flight-times">
-      <div class="flight-time-block">
-        <div class="flight-time">16:00</div>
-        <div class="flight-airport">Oslo Gardermoen</div>
-        <div class="flight-airport" style="margin-top:2px;">OSL</div>
-      </div>
-      <div class="flight-duration">
-        <div class="flight-dur-num" style="margin-top:8px;">~1t 10min</div>
-        <div style="font-size:10px;color:var(--text3);">Direkteflyging</div>
-      </div>
-      <div class="flight-time-block">
-        <div class="flight-time">17:10</div>
-        <div class="flight-airport">København</div>
-        <div class="flight-airport" style="margin-top:2px;">CPH</div>
-      </div>
-    </div>
-    <div class="flight-airline">SAS Scandinavian Airlines · SK459</div>
-  </div>
-
-  <!-- Layover indicator -->
-  <div style="display:flex;align-items:center;gap:10px;padding:6px 14px;margin:-4px 0;">
-    <div style="flex:1;height:1px;background:var(--border);"></div>
-    <div style="font-size:11px;font-weight:600;color:var(--text3);white-space:nowrap;">🕐 45 min mellomlanding CPH</div>
-    <div style="flex:1;height:1px;background:var(--border);"></div>
-  </div>
-
-  <!-- Outbound leg 2: CPH → ZRH -->
-  <div class="flight-card" style="border-color:var(--city1-bd);">
-    <div style="font-size:11px;font-weight:700;color:var(--city1);margin-bottom:6px;">SK609 &nbsp;·&nbsp; CPH → ZRH</div>
-    <div class="flight-route">
-      <span>CPH</span>
-      <span class="flight-arrow">→</span>
-      <span>ZRH</span>
-    </div>
-    <div class="flight-times">
-      <div class="flight-time-block">
-        <div class="flight-time">17:55</div>
-        <div class="flight-airport">København</div>
-        <div class="flight-airport" style="margin-top:2px;">CPH</div>
-      </div>
-      <div class="flight-duration">
-        <div class="flight-dur-num" style="margin-top:8px;">~1t 45min</div>
-        <div style="font-size:10px;color:var(--text3);">Direkteflyging</div>
-      </div>
-      <div class="flight-time-block">
-        <div class="flight-time">19:40</div>
-        <div class="flight-airport">Zürich</div>
-        <div class="flight-airport" style="margin-top:2px;">ZRH</div>
-      </div>
-    </div>
-    <div class="flight-airline">SAS Scandinavian Airlines · SK609</div>
-    <div class="flight-tip">🚂 Fra ZRH: Ta S-Bahn S16 fra undergrunnstasjonen — 12 min til Zürich HB, deretter S-Bahn til Hardbrücke for Viadukt Apartments.</div>
-  </div>
-
-  <!-- Divider -->
-  <div style="height:1px;background:var(--border);margin:16px 0;"></div>
-  <div class="section-title">✈️ Hjemreise — Mandag 25. mai 2026</div>
-
-  <!-- Return: ZRH → OSL -->
-  <div class="flight-card" style="border-color:var(--city3-bd);">
-    <div style="font-size:11px;font-weight:700;color:var(--city3);margin-bottom:6px;">SK4842 &nbsp;·&nbsp; ZRH → OSL</div>
+    <div style="font-size:11px;font-weight:700;color:var(--city1);margin-bottom:6px;">MANDAG 25. MAI 2026</div>
     <div class="flight-route">
       <span>ZRH</span>
       <span class="flight-arrow">→</span>
-      <span>OSL</span>
+      <span>—</span>
     </div>
     <div class="flight-times">
       <div class="flight-time-block">
         <div class="flight-time">21:35</div>
-        <div class="flight-airport">Zürich</div>
-        <div class="flight-airport" style="margin-top:2px;">ZRH</div>
+        <div class="flight-airport">Zürich (ZRH)</div>
+        <div class="flight-airport" style="margin-top:2px;">Terminal — sjekk billett</div>
       </div>
       <div class="flight-duration">
-        <div class="flight-dur-num" style="margin-top:8px;">~2t 30min</div>
-        <div style="font-size:10px;color:var(--text3);">Direkteflyging</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:8px;">Avgang</div>
       </div>
       <div class="flight-time-block">
-        <div class="flight-time">00:05+1</div>
-        <div class="flight-airport">Oslo Gardermoen</div>
-        <div class="flight-airport" style="margin-top:2px;">OSL</div>
+        <div class="flight-time" style="font-size:14px;color:var(--text2);">Destinasjon</div>
+        <div class="flight-airport">Se billett</div>
       </div>
     </div>
-    <div class="flight-airline">SAS Scandinavian Airlines · SK4842</div>
-    <div class="flight-tip">⏰ Sjekk inn senest kl. 19:35 (2t før avgang). Ta SBB S-Bahn S16/S2 fra Zürich HB til Flughafen — 12 min, spor 21–24.</div>
+    <div class="flight-tip">⏰ Sjekk inn senest 2 timer før avgang = møt opp ZRH innen 19:35. Ta SBB S-Bahn til Flughafen (12 min fra Zürich HB). Husk gyldig pass!</div>
   </div>
 
-  <div class="prac-section" style="margin-top:4px;">
-    <div class="prac-title">🚂 Lugano → Zürich flyplass (25. mai)</div>
+  <div class="prac-section" style="margin-top:8px;">
+    <div class="prac-title">🚂 Lugano → Zürich flyplass</div>
     <div class="prac-item"><strong>Lugano avgang:</strong> Senest 17:00 for rolig innsjekk</div>
-    <div class="prac-item"><strong>Lugano → Zürich HB:</strong> SBB direktetog ~1t 55min</div>
-    <div class="prac-item"><strong>Zürich HB → Flughafen:</strong> S-Bahn S16, 12 min fra spor 21–24</div>
-    <div class="prac-item"><strong>Innsjekk:</strong> Åpner ca. 2t 30min før avgang, lukkes 45 min før</div>
-    <div class="prac-item"><strong>Zürich Airport ZRH:</strong> Veldig oversiktlig — god duty free etter sikkerhetskontroll</div>
+    <div class="prac-item"><strong>Lugano → Zürich HB:</strong> SBB direktetog ~1h 55min</div>
+    <div class="prac-item"><strong>Zürich HB → Flughafen:</strong> S-Bahn S16, 12 min fra spor 22 (kjøper billett i automaten)</div>
+    <div class="prac-item"><strong>Innsjekk:</strong> Åpner ca. 2t 30min før avgang, lukkes 30–45 min før</div>
+    <div class="prac-item"><strong>Zürich Airport ZRH:</strong> Veldig oversiktlig — god infrastruktur, bra kjøp i duty free etter sikkerhetskontroll</div>
   </div>
 </div>
 
@@ -741,136 +740,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
   </div>
 </div>
 
-<!-- BOOKING TAB -->
-<div id="v-book" class="view">
-  <div class="section-title">🚂 Tog å booke</div>
-  <div style="font-size:12px;color:var(--text3);margin-bottom:14px;padding-left:2px;">Alle togstrekninger basert på hotellene dere bor på. Huk av etter hvert som de bookes.</div>
-
-  <!-- Leg 1 -->
-  <div class="prac-section">
-    <div class="prac-title" style="color:var(--city1);">📅 Torsdag 21. mai — Ankomst Zürich</div>
-    <div class="checklist-item">
-      <input type="checkbox" id="b1">
-      <label for="b1" style="cursor:pointer;">
-        <strong>ZRH Flughafen → Zürich Hardbrücke</strong><br>
-        <span style="font-size:12px;color:var(--text2);">
-          Avgang: ~19:55 (etter landing 19:40) &nbsp;·&nbsp; Ankomst: ~20:07<br>
-          Selskap: SBB / ZVV &nbsp;·&nbsp; Tog: S-Bahn S16<br>
-          Fra: Flughafen undergrunnsstasjon &nbsp;·&nbsp; Til: Hardbrücke (~10 min gange til Viadukt Apartments)<br>
-          Pris: CHF 6.80 / person &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Kjøp i ZVV-appen eller automat på flyplassen</span>
-        </span>
-      </label>
-    </div>
-  </div>
-
-  <!-- Leg 2 -->
-  <div class="prac-section">
-    <div class="prac-title" style="color:var(--city1);">📅 Fredag 22. mai — Zürich → Lake Como</div>
-    <div class="checklist-item" style="margin-bottom:12px;">
-      <input type="checkbox" id="b2a">
-      <label for="b2a" style="cursor:pointer;">
-        <strong>Zürich HB → Lugano</strong><br>
-        <span style="font-size:12px;color:var(--text2);">
-          Avgang: ~11:30 &nbsp;·&nbsp; Ankomst Lugano: ~13:00<br>
-          Selskap: SBB &nbsp;·&nbsp; Tog: InterCity (IC) mot Milano<br>
-          Fra: Zürich HB &nbsp;·&nbsp; Til: Lugano<br>
-          Pris: CHF 35–50 / person &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Book på forhånd i SBB-appen — billigere tidlig</span>
-        </span>
-      </label>
-    </div>
-    <div class="checklist-item">
-      <input type="checkbox" id="b2b">
-      <label for="b2b" style="cursor:pointer;">
-        <strong>Lugano → Como San Giovanni</strong><br>
-        <span style="font-size:12px;color:var(--text2);">
-          Avgang: ~13:20 etter bytte &nbsp;·&nbsp; Ankomst: ~13:55<br>
-          Selskap: Trenitalia &nbsp;·&nbsp; Tog: Regionaltog<br>
-          Fra: Lugano stasjon &nbsp;·&nbsp; Til: Como San Giovanni<br>
-          Pris: ca. €5–8 / person &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Kjøp i Trenitalia-appen eller automat på Lugano stasjon</span>
-        </span>
-      </label>
-    </div>
-    <div class="checklist-item" style="margin-top:8px;">
-      <input type="checkbox" id="b2c">
-      <label for="b2c" style="cursor:pointer;">
-        <strong>Como San Giovanni → Sala Comacina (buss/taxi)</strong><br>
-        <span style="font-size:12px;color:var(--text2);">
-          Buss SP18 retning Menaggio — stopp Sala Comacina, ~45 min, billig<br>
-          Alternativt: taxi ~€35–40, ~30 min &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Anbefalt med bagasje</span><br>
-          Busstopp: rett utenfor Como San Giovanni stasjon
-        </span>
-      </label>
-    </div>
-  </div>
-
-  <!-- Leg 3 -->
-  <div class="prac-section">
-    <div class="prac-title" style="color:var(--city2);">📅 Søndag 24. mai — Lake Como → Lugano</div>
-    <div class="checklist-item" style="margin-bottom:12px;">
-      <input type="checkbox" id="b3a">
-      <label for="b3a" style="cursor:pointer;">
-        <strong>Sala Comacina → Como San Giovanni (taxi)</strong><br>
-        <span style="font-size:12px;color:var(--text2);">
-          Utsjekk SALA-UNO: senest 11:00 &nbsp;·&nbsp; Kjøretid: ~30 min<br>
-          <span style="color:#E65100;font-weight:600;">Book taxi kvelden før — spør hotellet om hjelp</span><br>
-          Pris: ca. €35–40
-        </span>
-      </label>
-    </div>
-    <div class="checklist-item">
-      <input type="checkbox" id="b3b">
-      <label for="b3b" style="cursor:pointer;">
-        <strong>Como San Giovanni → Lugano</strong><br>
-        <span style="font-size:12px;color:var(--text2);">
-          Avgang: ~12:00–12:30 &nbsp;·&nbsp; Ankomst: ~12:45<br>
-          Selskap: Trenitalia &nbsp;·&nbsp; Tog: Regionaltog<br>
-          Fra: Como San Giovanni &nbsp;·&nbsp; Til: Lugano<br>
-          Pris: ca. €10–15 / person &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Kjøp i Trenitalia-appen</span>
-        </span>
-      </label>
-    </div>
-  </div>
-
-  <!-- Leg 4 -->
-  <div class="prac-section">
-    <div class="prac-title" style="color:var(--city3);">📅 Mandag 25. mai — Lugano → Zürich Flyplass</div>
-    <div class="checklist-item" style="margin-bottom:12px;">
-      <input type="checkbox" id="b4a">
-      <label for="b4a" style="cursor:pointer;">
-        <strong>Lugano → Zürich HB</strong><br>
-        <span style="font-size:12px;color:var(--text2);">
-          Avgang: senest 17:00 &nbsp;·&nbsp; Ankomst ZRH HB: ~18:55<br>
-          Selskap: SBB &nbsp;·&nbsp; Tog: InterCity direkte<br>
-          Fra: Lugano HB &nbsp;·&nbsp; Til: Zürich HB<br>
-          Pris: CHF 43 / person inkl. S-Bahn &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Book i SBB-appen</span>
-        </span>
-      </label>
-    </div>
-    <div class="checklist-item">
-      <input type="checkbox" id="b4b">
-      <label for="b4b" style="cursor:pointer;">
-        <strong>Zürich HB → Zürich Flughafen</strong><br>
-        <span style="font-size:12px;color:var(--text2);">
-          Avgang: ~19:00 &nbsp;·&nbsp; Ankomst ZRH: ~19:12<br>
-          Selskap: SBB / ZVV &nbsp;·&nbsp; Tog: S-Bahn S16 eller S2<br>
-          Fra: Zürich HB spor 21–24 &nbsp;·&nbsp; Til: Zürich Flughafen<br>
-          Pris: inkludert i Lugano–Zürich billett &nbsp;·&nbsp; <span style="color:#E65100;font-weight:600;">Ingen ekstra kjøp nødvendig</span>
-        </span>
-      </label>
-    </div>
-  </div>
-
-  <!-- Summary -->
-  <div class="prac-section" style="background:var(--city1-bg);border-color:var(--city1-bd);">
-    <div class="prac-title">💰 Estimert togtotal</div>
-    <div class="prac-item"><strong>ZRH Flyplass → Zürich (21. mai):</strong> CHF 6.80 × 2 = CHF 13.60</div>
-    <div class="prac-item"><strong>Zürich → Como (22. mai):</strong> ~CHF 45 × 2 = CHF 90 + €6 × 2 = €12</div>
-    <div class="prac-item"><strong>Como → Lugano (24. mai):</strong> Taxi ~€38 + €12 × 2 billett = €62</div>
-    <div class="prac-item"><strong>Lugano → ZRH Flyplass (25. mai):</strong> CHF 43 × 2 = CHF 86</div>
-    <div class="prac-item" style="font-weight:700;color:var(--city1);border-bottom:none;">Totalt: ~CHF 190 + ~€75 per par</div>
-  </div>
-</div>
-
 <!-- PRACTICAL TAB -->
 <div id="v-prac" class="view">
   <div class="prac-section">
@@ -878,8 +747,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="checklist-item"><input type="checkbox"><span>Bestill tog Zürich → Como (SBB-appen, gjør det NÅ for best pris)</span></div>
     <div class="checklist-item"><input type="checkbox"><span>Bestill tog Como → Lugano og Lugano → Zürich</span></div>
     <div class="checklist-item"><input type="checkbox"><span>Last ned SBB-appen (sveitsiske tog) og ZVV-appen (Zürich trikk/buss)</span></div>
-    <div class="checklist-item"><input type="checkbox"><span>Bestill bord: Il Cavatappi (Varenna) — minst 2 dager frem</span></div>
+    <div class="checklist-item"><input type="checkbox"><span>Bestill bord: Tirlindana (Sala Comacina) — kveldsmiddag 23. mai, be om innsjøutsikt</span></div>
+    <div class="checklist-item"><input type="checkbox"><span>Bestill bord: Al Vecchio Bacucco — sjekk ledig dato</span></div>
     <div class="checklist-item"><input type="checkbox"><span>Bestill bord: THE VIEW (Lugano) kveldsmiddag 24. mai</span></div>
+    <div class="checklist-item"><input type="checkbox"><span>Bestill liten båt for 23. mai: hiringaboat.com</span></div>
     <div class="checklist-item"><input type="checkbox"><span>Pakk reiseadapter (sveitsisk Type J — 3-pinners Y-stik)</span></div>
     <div class="checklist-item"><input type="checkbox"><span>Ha pass og forsikringskort lett tilgjengelig</span></div>
     <div class="checklist-item"><input type="checkbox"><span>Sjekk Navigazione Laghi fergerutetider for 23. mai</span></div>
@@ -930,95 +801,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 </div>
 
 <script>
-// ===== MAP =====
-let mapInited = false;
-async function fetchRoute(a, b) {
-  const url = `https://router.project-osrm.org/route/v1/driving/${a[1]},${a[0]};${b[1]},${b[0]}?overview=full&geometries=geojson`;
-  try {
-    const d = await (await fetch(url)).json();
-    if (d.routes && d.routes[0])
-      return d.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
-  } catch(e) {}
-  return [a, b];
-}
-
-function numIcon(n, bg, shape) {
-  const r = shape === 'square' ? '4px' : '50%';
-  return L.divIcon({ className: '',
-    html: `<div style="background:${bg};color:#fff;font-size:11px;font-weight:700;width:24px;height:24px;border-radius:${r};border:2.5px solid white;box-shadow:0 2px 6px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;">${n}</div>`,
-    iconSize:[24,24], iconAnchor:[12,12] });
-}
-
-async function initMap() {
-  if (mapInited) return;
-  mapInited = true;
-
-  const map = L.map('map', { zoomControl: true, scrollWheelZoom: false });
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
-    maxZoom: 15
-  }).addTo(map);
-
-  // ── Stops in journey order ──────────────────────────────────────────
-  const stops = [
-    { n:1,  ll:[60.1939,11.1004], label:'✈️ Oslo Gardermoen (OSL)', note:'SK459 avgang 16:00 · 21. mai',           type:'airport' },
-    { n:2,  ll:[55.6180,12.6561], label:'✈️ København (CPH)',       note:'Mellomlanding 45 min · SK609 avg 17:55', type:'airport' },
-    { n:3,  ll:[47.4647, 8.5492], label:'✈️ Zürich (ZRH)',          note:'Ankomst 19:40 · S-Bahn S16 til sentrum', type:'airport' },
-    { n:4,  ll:[47.3855, 8.5215], label:'🏨 Viadukt Apartments',    note:'Zürich · 21–22 mai · 1 natt',            type:'hotel', color:'#0D47A1' },
-    { n:5,  ll:[47.3779, 8.5401], label:'🚂 Zürich HB',             note:'Avgang ~11:30 · IC mot Lugano · 22. mai',type:'station' },
-    { n:6,  ll:[46.0052, 8.9468], label:'🚂 Lugano stasjon',        note:'Bytte Trenitalia mot Como',               type:'station' },
-    { n:7,  ll:[45.8099, 9.0799], label:'🚂 Como San Giovanni',     note:'Buss SP18 / taxi til Sala Comacina',      type:'station' },
-    { n:8,  ll:[45.9594, 9.1526], label:'🏨 SALA-UNO',              note:'Sala Comacina · 22–24 mai · 2 netter',   type:'hotel', color:'#00695C' },
-    { n:9,  ll:[45.8099, 9.0799], label:'🚂 Como San Giovanni',     note:'Taxi til stasjonen · 24. mai',            type:'station' },
-    { n:10, ll:[46.0052, 8.9468], label:'🚂 Lugano stasjon',        note:'Av Trenitalia fra Como',                  type:'station' },
-    { n:11, ll:[46.0037, 8.9528], label:'🏨 Hotel Victoria',        note:'Lugano · 24–25 mai · 1 natt',            type:'hotel', color:'#B91C4A' },
-    { n:12, ll:[46.0052, 8.9468], label:'🚂 Lugano stasjon',        note:'SBB IC avgang senest 17:00 · 25. mai',   type:'station' },
-    { n:13, ll:[47.3779, 8.5401], label:'🚂 Zürich HB',             note:'Ankomst ~18:55 · S-Bahn til flyplass',   type:'station' },
-    { n:14, ll:[47.4647, 8.5492], label:'✈️ Zürich (ZRH)',          note:'SK4842 avgang 21:35 · 25. mai',          type:'airport' },
-    { n:15, ll:[60.1939,11.1004], label:'✈️ Oslo Gardermoen (OSL)', note:'Ankomst ~00:05 · 26. mai',               type:'airport' }
-  ];
-
-  // ── Draw markers ────────────────────────────────────────────────────
-  stops.forEach(s => {
-    const bg = s.type==='airport' ? '#1565C0' : s.type==='hotel' ? s.color : '#EB0000';
-    const shape = s.type==='station' ? 'square' : 'circle';
-    L.marker(s.ll, { icon: numIcon(s.n, bg, shape) }).addTo(map)
-      .bindPopup(`<strong>${s.label}</strong><br><span style="font-size:12px;color:#555;">${s.note}</span>`);
-  });
-
-  // ── Flight legs (straight lines) ────────────────────────────────────
-  const flt = { color:'#1565C0', weight:2, dashArray:'7,5', opacity:0.7 };
-  L.polyline([stops[0].ll, stops[1].ll], flt).addTo(map);   // OSL→CPH
-  L.polyline([stops[1].ll, stops[2].ll], flt).addTo(map);   // CPH→ZRH
-  L.polyline([stops[13].ll,stops[14].ll],flt).addTo(map);   // ZRH→OSL return
-
-  // ── Ground legs via OSRM (road-following) ───────────────────────────
-  const trn = { color:'#EB0000', weight:2.5, opacity:0.9 };
-  const loc = { color:'#E65100', weight:2, dashArray:'3,6', opacity:0.8 };
-
-  const legs = [
-    [stops[2].ll,  stops[3].ll,  loc], // ZRH airport → Viadukt
-    [stops[3].ll,  stops[4].ll,  loc], // Viadukt → ZRH HB
-    [stops[4].ll,  stops[5].ll,  trn], // ZRH HB → Lugano (train)
-    [stops[5].ll,  stops[6].ll,  trn], // Lugano → Como (train)
-    [stops[6].ll,  stops[7].ll,  loc], // Como → Sala Comacina (taxi)
-    [stops[8].ll,  stops[9].ll,  loc], // Sala → Como (taxi back)
-    [stops[9].ll,  stops[10].ll, trn], // Como → Lugano (train)
-    [stops[10].ll, stops[11].ll, loc], // Lugano station → Hotel Victoria
-    [stops[11].ll, stops[12].ll, loc], // Hotel → Lugano HB
-    [stops[12].ll, stops[13].ll, trn], // Lugano → ZRH HB (train)
-    [stops[13].ll, stops[14].ll, loc], // ZRH HB → ZRH airport (S-Bahn) — index 14 is ZRH airport
-  ];
-
-  await Promise.all(legs.map(async ([a, b, style]) => {
-    const coords = await fetchRoute(a, b);
-    L.polyline(coords, style).addTo(map);
-  }));
-
-  // Fit to trip area (excluding Norway/CPH)
-  map.fitBounds([stops[2].ll, stops[3].ll, stops[7].ll, stops[11].ll, stops[6].ll, stops[5].ll], { padding:[30,30] });
-}
-
 // ===== DATA =====
 const HOTELS = {
   viadukt: {
@@ -1112,36 +894,38 @@ const DAYS = [
   },
   {
     d: "23", wd: "Lør", city: "city2", icon: "⛵", hotel: "salauno", checkin: false, checkout: false,
-    label: "Heldagstur — Como",
+    label: "Båt + Varenna + Bellagio",
     cats: [
       {
-        ic: "🗺", t: "Morgen: Sala Comacina & Isola Comacina",
+        ic: "☕", t: "Morgen: Lokalt frokost",
         items: [
-          { n: "Frokost med innsjøutsikt", a: "SALA-UNO eller lokal bar", tip: "Start rolig med frokost ved vannet. Be om «cornetto e cappuccino» — som en croissant, grunnleggende italiensk frokosterfaring." },
-          { n: "Isola Comacina", a: "Innsjøens eneste øy — 5 min med liten båt", tip: "Ta den lille fergeforbindelsen fra Sala Comacina til øya (kort tur). Kirkruiner, arkeologiske funn og fantastisk utsikt. Koste ca. €5–8 tur/retur." }
+          { n: "Frokost på Max's Bar", a: "Rett ved siden av SALA-UNO", tip: "Start dagen med espresso og cornetto blant de ekte lokale. Max's Bar er huseierens anbefaling for morgenkafeen — og du trenger ikke gå langt!" },
+          { n: "Isola Comacina", a: "Innsjøens eneste øy — 5 min med liten båt", tip: "Ta den lille fergeforbindelsen fra Sala Comacina til øya. Kirkruiner og arkeologiske funn i rolige omgivelser. Koste ca. €5–8 tur/retur. Perfekt før hovedturen." }
         ]
       },
       {
-        ic: "🛶", t: "Midtdag: Varenna via Bellagio (ferge)",
+        ic: "🚤", t: "Formiddag: Lei liten båt — se villaene fra vannet",
         items: [
-          { n: "Ferge til Bellagio", a: "Fra Sala Comacina, Navigazione Laghi", tip: "Ta dagspass (€15) for fritt bruk av ferger hele dagen. Rutetider på navigazionelaghi.it. Turen til Bellagio tar ca. 25 min." },
-          { n: "Villa Melzi Gardens (Bellagio)", a: "Via Lungolario Manzoni, Bellagio", tip: "Praktfulle parkanlegg langs sjøen, åpent 10:00–19:00. Inngangspris ca. €8. Azalea og magnoliatrær er i full blomst i mai!" },
-          { n: "Punta Spartivento", a: "Nordspissen av Bellagio", tip: "Gratis park med den mest ikoniske 360°-utsikten over de tre Como-armene. Walkable fra sentrum (~15 min)." },
-          { n: "Bilferge Bellagio → Varenna", a: "Ca. 20 min, Navigazione Laghi", tip: "Inkludert i dagspasset. Kjøres som bilferge, men gå ombord som fotgjenger — hurtig og effektivt." }
+          { n: "Lei liten båt (hiringaboat.com)", a: "Sala Comacina / Lenno area", tip: "Huseieren anbefaler dette spesielt: å oppleve innsjøen fra båt er noe helt eget. Lei en liten motorbåt og kjør langs bredden. Bestill på forhånd: hiringaboat.com" },
+          { n: "Villa del Balbianello (fra vannet)", a: "Lenno — spektakulær terrasse", tip: "Vil du gå inn: Bestill billetter på forhånd (villa med hage, åpent okt–mai på bestemte dager). Uansett: Synet av villaen fra vannet er ikonisk — brukt i James Bond og Star Wars!" },
+          { n: "Menaggio (stopp ved offentlig kai)", a: "Menaggio — 15 min nordover med båt", tip: "Menaggio har en offentlig kai der du kan legge til og gå ut. Utforsk den hyggelige småbyen, ta en drink på kaien og kom tilbake til båten. Rolig og sjarmerende." }
         ]
       },
       {
-        ic: "🏰", t: "Ettermiddag: Varenna",
+        ic: "⛴", t: "Ettermiddag: Bellagio + Varenna med ferge",
         items: [
-          { n: "Walk of Lovers (Passeggiata degli Innamorati)", a: "Langs sjøkanten, Varenna", tip: "Den berømte promenadeveien som henger over vannet. Gratis, men kun 1 person bred — ta det sakte og nyt det." },
-          { n: "Villa Monastero", a: "Via Polvani 2, Varenna", tip: "Historisk villa med botanisk hage rett ved innsjøen. Gratis å gå i hagen (inngangspris museumsdelen)." },
-          { n: "Castello di Vezio", a: "Oppover fra Varenna sentrum (~30 min gange)", tip: "Middelalderfestning med den beste utsikten over innsjøen. Åpent mai–oktober. Verdt klatringen!" }
+          { n: "Ferge til Bellagio", a: "Fra Sala Comacina, Navigazione Laghi dagspass €15", tip: "Returner båten og ta Navigazione Laghi-fergen til Bellagio (~25 min). Dagspass på €15 gir fri bruk av ferger hele dagen — klart verdt det!" },
+          { n: "Punta Spartivento (Bellagio)", a: "Nordspissen av Bellagio — GRATIS", tip: "Den ikoniske 360°-utsikten over alle tre Como-armene. Gangbar fra fergeleiet (~15 min). Absolutt ikke overses — dette er Como på sitt beste, og det koster ingenting!" },
+          { n: "Villa Melzi Gardens (Bellagio)", a: "Via Lungolario Manzoni — ca. €8", tip: "Praktfulle parkanlegg langs sjøen. Azalea og magnoliatrær i full blomst i mai. Åpent 10:00–19:00. Billig og nydelig — verdt inngangsprisen." },
+          { n: "Bilferge Bellagio → Varenna", a: "Ca. 20 min, inkludert i dagspasset", tip: "Bilfergen til Varenna tar 20 min og er inkludert i dagspasset. Gå ombord som fotgjenger." },
+          { n: "Walk of Lovers (Passeggiata degli Innamorati)", a: "Langs sjøkanten, Varenna — GRATIS", tip: "Den berømte promenadeveien som henger over vannflaten. Smal, romantisk og helt gratis. Ta det sakte." },
+          { n: "Castello di Vezio", a: "Varenna — 30 min gange opp, ca. €5", tip: "Middelalderborg med den beste utsikten over innsjøen. Litt klatring, men billig og svært verdt det. Åpent mai–oktober." }
         ]
       },
       {
-        ic: "🍝", t: "Kveldsmiddag: Varenna",
+        ic: "🍝", t: "Kveldsmiddag: Tirlindana (bestill nå!)",
         items: [
-          { n: "Middag: Il Cavatappi (Varenna)", a: "Via XX Settembre 10, Varenna", tip: "Intimt og hjemmekoselig — hjemmelaget pasta og lokal innsjøfisk. Bestill bord i forkant! Ta ferge tilbake til Sala Comacina etter middag." }
+          { n: "Middag: Tirlindana", a: "Sala Comacina — huseierens anbefaling", tip: "Familiedrevet restaurant med fantastisk utsikt over innsjøen. Rimelig og deilig. Huseieren fremhever dette spesielt! Husk å bestille bord i forkant — be om et bord med innsjøutsikt." }
         ]
       }
     ]
@@ -1151,10 +935,11 @@ const DAYS = [
     label: "Como → Lugano",
     cats: [
       {
-        ic: "🌅", t: "Morgen: Siste timer ved Como",
+        ic: "🌿", t: "Morgen: Greenway Walk → Lenno",
         items: [
-          { n: "Morgentur langs innsjøen", a: "Sala Comacina bukt", tip: "Stå opp tidlig for morgenlyset på vannet. Innsjøen er helt stille om morgenen — nydelig for bilder." },
-          { n: "Utsjekk SALA-UNO", a: "Innen 11:00", tip: "Pakk, sjekk ut og arranger bagasje. Taxi til Como San Giovanni anbefales fremfor buss med kofferter." }
+          { n: "Greenway Walk mot Lenno", a: "Starter fra Sala Comacina", tip: "Start tidlig! Gå sørover langs Greenway-stien mot Lenno (~30 min, stille og nydelig om morgenen). Stien passerer sjøvilla er og sjarmerende landsbyer med flott utsikt over innsjøen — huseierens klare anbefaling." },
+          { n: "Bar Pasticceria Tremezzina", a: "Lenno — 30 min gange fra huset", tip: "Stopp her på vei langs Greenway! Elsket lokalt bakeri der du sitter blant ekte lokale. Must-try: Pistasj-croissant og brioche — huseieren sier begge er fantastiske. Billig og autentisk." },
+          { n: "Utsjekk SALA-UNO", a: "Innen 11:00", tip: "Gå tilbake til SALA-UNO langs innsjøstien. Pakk, sjekk ut og arranger bagasje. Taxi til Como San Giovanni anbefales fremfor buss med kofferter." }
         ]
       },
       {
@@ -1220,18 +1005,21 @@ const TPILLS = {
     "Taxi/Buss til Sala Comacina": { mode: "walk", line: "Gange til fergeleiet", detail: "Ankomst → SALA-UNO check-in", time: "5 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Sala+Comacina/SALA-UNO+Lake+Como/" }
   },
   2: {
-    "Frokost med innsjøutsikt": { mode: "ferry", line: "Liten ferge til øya", detail: "Sala Comacina → Isola Comacina", time: "5 min · ca. €5", color: "#01579B", bg: "#E1F5FE", icon: "⛴", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Isola+Comacina/" },
-    "Isola Comacina": { mode: "ferry", line: "Navigazione Laghi", detail: "Sala Comacina → Bellagio", time: "~25 min · dagspass €15", color: "#1565C0", bg: "#E3F2FD", icon: "⛴", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Bellagio+Lake+Como/" },
-    "Ferge til Bellagio": { mode: "walk", line: "Gange i Bellagio", detail: "Fergeleie → Villa Melzi", time: "8 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Bellagio+Ferry+Dock/Villa+Melzi+Bellagio/" },
-    "Villa Melzi Gardens (Bellagio)": { mode: "walk", line: "Gange til Punta", detail: "Villa Melzi → Punta Spartivento", time: "15 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Villa+Melzi+Bellagio/Punta+Spartivento+Bellagio/" },
-    "Punta Spartivento": { mode: "ferry", line: "Bilferge Navigazione Laghi", detail: "Bellagio → Varenna", time: "20 min · inkl. i dagspass", color: "#1565C0", bg: "#E3F2FD", icon: "⛴", maps: "https://maps.google.com/maps/dir/Bellagio/Varenna/" },
-    "Bilferge Bellagio → Varenna": { mode: "walk", line: "Gange ved innsjøen", detail: "Fergeleie → Walk of Lovers", time: "3 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Varenna+Ferry+Dock/Walk+of+Lovers+Varenna/" },
-    "Walk of Lovers (Passeggiata degli Innamorati)": { mode: "walk", line: "Gange", detail: "Promenaden → Villa Monastero", time: "5 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Walk+of+Lovers+Varenna/Villa+Monastero+Varenna/" },
-    "Villa Monastero": { mode: "walk", line: "Oppgang til slottet", detail: "Sentrum → Castello di Vezio", time: "30 min gange oppoverbakke", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Villa+Monastero+Varenna/Castello+di+Vezio+Varenna/" },
-    "Castello di Vezio": { mode: "walk", line: "Ned til restauranten", detail: "Slottet → Il Cavatappi", time: "20 min ned", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Castello+di+Vezio/Il+Cavatappi+Varenna/" }
+    "Frokost på Max's Bar": { mode: "ferry", line: "Liten ferge til øya", detail: "Sala Comacina → Isola Comacina", time: "5 min · ca. €5", color: "#01579B", bg: "#E1F5FE", icon: "⛴", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Isola+Comacina/" },
+    "Isola Comacina": { mode: "boat", line: "Lei liten motorbåt", detail: "Sala Comacina → på vannet", time: "Book på hiringaboat.com", color: "#00695C", bg: "#E0F2F1", icon: "🚤", maps: "https://www.hiringaboat.com/en/" },
+    "Lei liten båt (hiringaboat.com)": { mode: "boat", line: "Motorbåt langs bredden", detail: "→ Villa del Balbianello", time: "~10 min fra Sala Comacina", color: "#00695C", bg: "#E0F2F1", icon: "🚤", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Villa+del+Balbianello+Lenno/" },
+    "Villa del Balbianello (fra vannet)": { mode: "boat", line: "Motorbåt nordover", detail: "→ Menaggio offentlig kai", time: "~15 min nordover", color: "#00695C", bg: "#E0F2F1", icon: "🚤", maps: "https://maps.google.com/maps/dir/Villa+del+Balbianello/Menaggio/" },
+    "Menaggio (stopp ved offentlig kai)": { mode: "ferry", line: "Navigazione Laghi", detail: "Menaggio/Sala Comacina → Bellagio", time: "~20–25 min · dagspass €15", color: "#1565C0", bg: "#E3F2FD", icon: "⛴", maps: "https://maps.google.com/maps/dir/Menaggio/Bellagio+Lake+Como/" },
+    "Ferge til Bellagio": { mode: "walk", line: "Gange til Punta", detail: "Fergeleie → Punta Spartivento", time: "15 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Bellagio+Ferry+Dock/Punta+Spartivento+Bellagio/" },
+    "Punta Spartivento (Bellagio)": { mode: "walk", line: "Gange tilbake", detail: "Punta → Villa Melzi", time: "10 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Punta+Spartivento+Bellagio/Villa+Melzi+Bellagio/" },
+    "Villa Melzi Gardens (Bellagio)": { mode: "ferry", line: "Bilferge Navigazione Laghi", detail: "Bellagio → Varenna", time: "20 min · inkl. i dagspass", color: "#1565C0", bg: "#E3F2FD", icon: "⛴", maps: "https://maps.google.com/maps/dir/Bellagio/Varenna/" },
+    "Bilferge Bellagio → Varenna": { mode: "walk", line: "Gange ved innsjøen", detail: "Fergeleie → Walk of Lovers", time: "3 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Varenna+Ferry+Dock/Passeggiata+degli+Innamorati+Varenna/" },
+    "Walk of Lovers (Passeggiata degli Innamorati)": { mode: "walk", line: "Gange oppover", detail: "Promenaden → Castello di Vezio", time: "30 min oppoverbakke", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Passeggiata+degli+Innamorati+Varenna/Castello+di+Vezio/" },
+    "Castello di Vezio": { mode: "ferry", line: "Ferge tilbake til Sala Comacina", detail: "Varenna → Sala Comacina", time: "~30 min", color: "#1565C0", bg: "#E3F2FD", icon: "⛴", maps: "https://maps.google.com/maps/dir/Varenna/Sala+Comacina+Lake+Como/" }
   },
   3: {
-    "Morgentur langs innsjøen": { mode: "walk", line: "Pakking og utsjekk", detail: "Innsjøen → SALA-UNO", time: "Utsjekk innen 11:00", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Como+San+Giovanni+Station/" },
+    "Greenway Walk mot Lenno": { mode: "walk", line: "Greenway Walk langs innsjøen", detail: "Sala Comacina → Lenno (~30 min)", time: "30 min gange", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Lenno+Lake+Como/" },
+    "Bar Pasticceria Tremezzina": { mode: "walk", line: "Gange tilbake til huset", detail: "Lenno → Sala Comacina", time: "30 min · langs sjøen", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Lenno+Lake+Como/Sala+Comacina/" },
     "Utsjekk SALA-UNO": { mode: "taxi", line: "Taxi til togstasjon", detail: "Sala Comacina → Como S. Giovanni", time: "~30 min · €35–45", color: "#6B21A8", bg: "#FDF4FF", icon: "🚕", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Como+San+Giovanni+Station/" },
     "Taxi: Sala Comacina → Como S. Giovanni": { mode: "train", line: "Trenitalia/SBB direktetog", detail: "Como → Lugano", time: "~40 min", color: "#003DA5", bg: "#E3F2FD", icon: "🚆", maps: "https://maps.google.com/maps/dir/Como+San+Giovanni+Station/Lugano+Station/" },
     "Tog: Como → Lugano": { mode: "walk", line: "Gange til hotellet", detail: "Lugano stasjon → Hotel Victoria", time: "10 min gange", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Lugano+Station/Hotel+Victoria+Lugano/" },
@@ -1254,7 +1042,6 @@ function sw(id, btn) {
   btn.classList.add('on');
   document.getElementById('v-' + id).classList.add('on');
   window.scrollTo(0, 0);
-  if (id === 'map') setTimeout(initMap, 50);
 }
 
 function tToggle(header) {

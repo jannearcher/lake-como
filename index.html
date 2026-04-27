@@ -747,8 +747,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="checklist-item"><input type="checkbox"><span>Bestill tog Zürich → Como (SBB-appen, gjør det NÅ for best pris)</span></div>
     <div class="checklist-item"><input type="checkbox"><span>Bestill tog Como → Lugano og Lugano → Zürich</span></div>
     <div class="checklist-item"><input type="checkbox"><span>Last ned SBB-appen (sveitsiske tog) og ZVV-appen (Zürich trikk/buss)</span></div>
-    <div class="checklist-item"><input type="checkbox"><span>Bestill bord: Tirlindana (Sala Comacina) — kveldsmiddag 23. mai, be om innsjøutsikt</span></div>
-    <div class="checklist-item"><input type="checkbox"><span>Bestill bord: Al Vecchio Bacucco — sjekk ledig dato</span></div>
+    <div class="checklist-item"><input type="checkbox"><span>Bestill bord: Tirlindana — fredag 22. mai (første kveld), be om innsjøutsikt, si du bor på SALA-UNO</span></div>
+    <div class="checklist-item"><input type="checkbox"><span>Bestill bord: Ristorante Silvio (Bellagio) — lørdag 23. mai kveld</span></div>
+    <div class="checklist-item"><input type="checkbox"><span>Sjekk siste ferge fra Bellagio lørdag kveld (navigazionelaghi.it)</span></div>
     <div class="checklist-item"><input type="checkbox"><span>Bestill bord: THE VIEW (Lugano) kveldsmiddag 24. mai</span></div>
     <div class="checklist-item"><input type="checkbox"><span>Bestill liten båt for 23. mai: hiringaboat.com</span></div>
     <div class="checklist-item"><input type="checkbox"><span>Pakk reiseadapter (sveitsisk Type J — 3-pinners Y-stik)</span></div>
@@ -886,46 +887,56 @@ const DAYS = [
       {
         ic: "⛵", t: "Ankomst Sala Comacina",
         items: [
-          { n: "SALA-UNO — innsjekk", a: "Innsjekk fra 16:30", tip: "Innsjekk er fra 16:30 — perfekt tid etter reisen. Booking-ID: #5642." },
-          { n: "Kveldspromenade i Sala Comacina", a: "Langs sjøen", tip: "Gå langs Zoca de l'oli-bukten med fargerike fiskerhus. Enkel og vakker kveldstur. Fin tid for et glass lokal vin på terrassen." }
+          { n: "SALA-UNO — innsjekk", a: "Innsjekk fra 16:30 · Booking-ID #5642", tip: "Innsjekk er fra 16:30 — perfekt tid etter reisen. Legg fra deg bagasjen og ta en rask tur ned til sjøen." },
+          { n: "Kveldspromenade langs sjøen", a: "Zoca de l'oli-bukten, Sala Comacina", tip: "Gå langs bukten med de fargerike fiskerhusene. Stille og vakkert om kvelden — perfekt for å roe ned etter reisedagen." }
+        ]
+      },
+      {
+        ic: "🍽️", t: "Middag — første kveld (innen 40 min gange)",
+        items: [
+          { n: "Tirlindana", a: "Sala Comacina — huseierens favoritt ⭐", tip: "Familiedrevet restaurant med en av innsjøens beste utsikter. Rimelig og deilig — huseieren fremhever dette som sin absolutte favoritt. Bestill bord I FORKANT og si at du bor på SALA-UNO." },
+          { n: "Al Vecchio Bacucco", a: "14 min gange fra huset", tip: "Tradisjonell italiensk mat med moderne vri, laget av friske lokale råvarer. Godt alternativ om Tirlindana er fullt. Reservasjon anbefalt." },
+          { n: "Lido di Sala", a: "Sala Comacina — gangavstand", tip: "Uformelt og avslappet — perfekt om du er sliten etter reisen og bare vil ha en enkel pizza ved vannet. Ingen reservasjon nødvendig." }
         ]
       }
     ]
   },
   {
     d: "23", wd: "Lør", city: "city2", icon: "⛵", hotel: "salauno", checkin: false, checkout: false,
-    label: "Båt + Varenna + Bellagio",
+    label: "Greenway → Varenna → Bellagio",
     cats: [
       {
-        ic: "☕", t: "Morgen: Lokalt frokost",
+        ic: "☕", t: "Morgen: Frokost ved sjøen",
         items: [
-          { n: "Frokost på Max's Bar", a: "Rett ved siden av SALA-UNO", tip: "Start dagen med espresso og cornetto blant de ekte lokale. Max's Bar er huseierens anbefaling for morgenkafeen — og du trenger ikke gå langt!" },
-          { n: "Isola Comacina", a: "Innsjøens eneste øy — 5 min med liten båt", tip: "Ta den lille fergeforbindelsen fra Sala Comacina til øya. Kirkruiner og arkeologiske funn i rolige omgivelser. Koste ca. €5–8 tur/retur. Perfekt før hovedturen." }
+          { n: "Frokost på Max's Bar", a: "Rett ved siden av SALA-UNO", tip: "Start dagen med espresso og cornetto blant lokale. Max's Bar er nabo til huset — det blir ikke kortere gangavstand enn dette!" }
         ]
       },
       {
-        ic: "🚤", t: "Formiddag: Lei liten båt — se villaene fra vannet",
+        ic: "🚶", t: "Greenway Walk: Sala Comacina → Lenno → Tremezzo → Cadenabbia",
         items: [
-          { n: "Lei liten båt (hiringaboat.com)", a: "Sala Comacina / Lenno area", tip: "Huseieren anbefaler dette spesielt: å oppleve innsjøen fra båt er noe helt eget. Lei en liten motorbåt og kjør langs bredden. Bestill på forhånd: hiringaboat.com" },
-          { n: "Villa del Balbianello (fra vannet)", a: "Lenno — spektakulær terrasse", tip: "Vil du gå inn: Bestill billetter på forhånd (villa med hage, åpent okt–mai på bestemte dager). Uansett: Synet av villaen fra vannet er ikonisk — brukt i James Bond og Star Wars!" },
-          { n: "Menaggio (stopp ved offentlig kai)", a: "Menaggio — 15 min nordover med båt", tip: "Menaggio har en offentlig kai der du kan legge til og gå ut. Utforsk den hyggelige småbyen, ta en drink på kaien og kom tilbake til båten. Rolig og sjarmerende." }
+          { n: "Greenway Walk — mot Lenno", a: "~25 min sørover langs sjøen", tip: "Den berømte Greenway del Lago di Como følger vestbredden forbi sjøvillaer og sjarmerende landsbyer. Flatt og nydelig — ta det i rolig tempo og nyt utsikten." },
+          { n: "Bar Pasticceria Tremezzina (Lenno)", a: "Lenno — 30 min gange fra huset", tip: "Elsket lokalt bakeri — sitt blant ekte lokale og nyt frokost-pause. Must-try: Pistasjcroissant og brioche. Huseieren sier begge er fantastiske. Perfekt morgenstopp!" },
+          { n: "Villa del Balbianello (Lenno)", a: "Valgfritt — bestill billett på forhånd", tip: "Ikonisk villa med terrasse over vannet — brukt i James Bond og Star Wars! Bestill billett på forhånd på villadelbalbianello.it om du vil inn. Uansett vakker å se fra stien." },
+          { n: "Greenway Walk — mot Tremezzo", a: "~35 min fra Lenno", tip: "Stien fortsetter sørover med stadig flottere villaer og innsjøutsikt langs veien." },
+          { n: "Bar Roma (Tremezzo)", a: "Tremezzo sentrum — aperitivo eller lunsj", tip: "Flott terasse med spektakulær innsjøutsikt. Kjent for god aperitivo og pizzoccheri. Perfekt for en matpause eller drink midt på dagen." },
+          { n: "Villa Carlotta (Tremezzo)", a: "Valgfritt — ca. €12 inngang", tip: "Botanisk hage i full blomst i mai — azaleer, rhododendron og fantastisk utsikt. Ligger rett på veien. Fin pause hvis dere har tid." },
+          { n: "Cadenabbia fergeleie", a: "~15 min fra Tremezzo — ta fergen!", tip: "Navigazione Laghi ferge fra Cadenabbia til Varenna tar ca. 35 min. Sjekk rutetider på navigazionelaghi.it og kjøp dagspass (€15) for fri ferdsel resten av dagen." }
         ]
       },
       {
-        ic: "⛴", t: "Ettermiddag: Bellagio + Varenna med ferge",
+        ic: "🏰", t: "Varenna — ettermiddag",
         items: [
-          { n: "Ferge til Bellagio", a: "Fra Sala Comacina, Navigazione Laghi dagspass €15", tip: "Returner båten og ta Navigazione Laghi-fergen til Bellagio (~25 min). Dagspass på €15 gir fri bruk av ferger hele dagen — klart verdt det!" },
-          { n: "Punta Spartivento (Bellagio)", a: "Nordspissen av Bellagio — GRATIS", tip: "Den ikoniske 360°-utsikten over alle tre Como-armene. Gangbar fra fergeleiet (~15 min). Absolutt ikke overses — dette er Como på sitt beste, og det koster ingenting!" },
-          { n: "Villa Melzi Gardens (Bellagio)", a: "Via Lungolario Manzoni — ca. €8", tip: "Praktfulle parkanlegg langs sjøen. Azalea og magnoliatrær i full blomst i mai. Åpent 10:00–19:00. Billig og nydelig — verdt inngangsprisen." },
-          { n: "Bilferge Bellagio → Varenna", a: "Ca. 20 min, inkludert i dagspasset", tip: "Bilfergen til Varenna tar 20 min og er inkludert i dagspasset. Gå ombord som fotgjenger." },
-          { n: "Walk of Lovers (Passeggiata degli Innamorati)", a: "Langs sjøkanten, Varenna — GRATIS", tip: "Den berømte promenadeveien som henger over vannflaten. Smal, romantisk og helt gratis. Ta det sakte." },
-          { n: "Castello di Vezio", a: "Varenna — 30 min gange opp, ca. €5", tip: "Middelalderborg med den beste utsikten over innsjøen. Litt klatring, men billig og svært verdt det. Åpent mai–oktober." }
+          { n: "Walk of Lovers (Passeggiata degli Innamorati)", a: "Langs sjøkanten — GRATIS", tip: "Den romantiske promenadeveien som henger over vannflaten. Smal og vakker — ta det sakte og nyt det." },
+          { n: "Castello di Vezio", a: "30 min gange opp — ca. €5", tip: "Middelalderborg med innsjøens beste utsikt. Verdt klatringen! Åpent mai–oktober." },
+          { n: "Aperitivo i Varenna havn", a: "En av barene langs kaien", tip: "Ta en Aperol Spritz ved vannet og hvil beina før fergen til Bellagio." }
         ]
       },
       {
-        ic: "🍝", t: "Kveldsmiddag: Tirlindana (bestill nå!)",
+        ic: "🌟", t: "Bellagio — middag, så ferge hjem",
         items: [
-          { n: "Middag: Tirlindana", a: "Sala Comacina — huseierens anbefaling", tip: "Familiedrevet restaurant med fantastisk utsikt over innsjøen. Rimelig og deilig. Huseieren fremhever dette spesielt! Husk å bestille bord i forkant — be om et bord med innsjøutsikt." }
+          { n: "Punta Spartivento (Bellagio)", a: "Nordspissen — GRATIS, 15 min fra fergeleie", tip: "Den ikoniske 360°-utsikten der de tre Como-armene møtes. Absolutt verdt et raskt stopp på vei til middagen." },
+          { n: "Middag: Ristorante Silvio", a: "Via Carcano 12, Bellagio", tip: "Over 100 år gammelt — en institusjon i Bellagio. Fersk innsjøfisk, risotto con persico med safran er signaturretten. Rimelig, godt og autentisk. Bestill bord på forhånd!" },
+          { n: "Ferge hjem til Sala Comacina", a: "Navigazione Laghi — eller taxi", tip: "Sjekk siste fergeavgang fra Bellagio mot Sala Comacina/Lenno på navigazionelaghi.it. Alternativt er det enkelt å booke taxi hjem etter middag." }
         ]
       }
     ]
@@ -1002,20 +1013,25 @@ const TPILLS = {
     "Rask lunsj ved Zürichsee": { mode: "train", line: "SBB InterCity", detail: "Zürich HB → Lugano → Como", time: "~3.5 timer total", color: "#EB0000", bg: "#FFEBEE", icon: "🚆", maps: "https://maps.google.com/maps/dir/Zürich+HB/Como+San+Giovanni+Station/" },
     "Zürich HB": { mode: "train", line: "Trenitalia regionaltog", detail: "Lugano → Como San Giovanni", time: "~40 min", color: "#003DA5", bg: "#E3F2FD", icon: "🚆", maps: "https://maps.google.com/maps/dir/Lugano+Station/Como+San+Giovanni+Station/" },
     "Lugano → Como San Giovanni": { mode: "bus", line: "Buss SP18 / Taxi", detail: "Como Stasjon → Sala Comacina", time: "45 min buss / 30 min taxi", color: "#E65100", bg: "#FFF3E0", icon: "🚌", maps: "https://maps.google.com/maps/dir/Como+San+Giovanni+Station/Sala+Comacina+Lake+Como/" },
-    "Taxi/Buss til Sala Comacina": { mode: "walk", line: "Gange til fergeleiet", detail: "Ankomst → SALA-UNO check-in", time: "5 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Sala+Comacina/SALA-UNO+Lake+Como/" }
+    "Taxi/Buss til Sala Comacina": { mode: "walk", line: "Gange til fergeleiet", detail: "Ankomst → SALA-UNO check-in", time: "5 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Sala+Comacina/SALA-UNO+Lake+Como/" },
+    "SALA-UNO — innsjekk": { mode: "walk", line: "Gange langs sjøen", detail: "SALA-UNO → Zoca de l'oli-bukten", time: "2 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Sala+Comacina/" },
+    "Kveldspromenade langs sjøen": { mode: "walk", line: "Gange til middag", detail: "Bukt → Tirlindana / Al Vecchio Bacucco", time: "2–14 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Tirlindana+Sala+Comacina/" },
+    "Tirlindana": { mode: "walk", line: "Gange tilbake", detail: "Tirlindana → SALA-UNO", time: "5 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Tirlindana+Sala+Comacina/Sala+Comacina/" }
   },
   2: {
-    "Frokost på Max's Bar": { mode: "ferry", line: "Liten ferge til øya", detail: "Sala Comacina → Isola Comacina", time: "5 min · ca. €5", color: "#01579B", bg: "#E1F5FE", icon: "⛴", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Isola+Comacina/" },
-    "Isola Comacina": { mode: "boat", line: "Lei liten motorbåt", detail: "Sala Comacina → på vannet", time: "Book på hiringaboat.com", color: "#00695C", bg: "#E0F2F1", icon: "🚤", maps: "https://www.hiringaboat.com/en/" },
-    "Lei liten båt (hiringaboat.com)": { mode: "boat", line: "Motorbåt langs bredden", detail: "→ Villa del Balbianello", time: "~10 min fra Sala Comacina", color: "#00695C", bg: "#E0F2F1", icon: "🚤", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Villa+del+Balbianello+Lenno/" },
-    "Villa del Balbianello (fra vannet)": { mode: "boat", line: "Motorbåt nordover", detail: "→ Menaggio offentlig kai", time: "~15 min nordover", color: "#00695C", bg: "#E0F2F1", icon: "🚤", maps: "https://maps.google.com/maps/dir/Villa+del+Balbianello/Menaggio/" },
-    "Menaggio (stopp ved offentlig kai)": { mode: "ferry", line: "Navigazione Laghi", detail: "Menaggio/Sala Comacina → Bellagio", time: "~20–25 min · dagspass €15", color: "#1565C0", bg: "#E3F2FD", icon: "⛴", maps: "https://maps.google.com/maps/dir/Menaggio/Bellagio+Lake+Como/" },
-    "Ferge til Bellagio": { mode: "walk", line: "Gange til Punta", detail: "Fergeleie → Punta Spartivento", time: "15 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Bellagio+Ferry+Dock/Punta+Spartivento+Bellagio/" },
-    "Punta Spartivento (Bellagio)": { mode: "walk", line: "Gange tilbake", detail: "Punta → Villa Melzi", time: "10 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Punta+Spartivento+Bellagio/Villa+Melzi+Bellagio/" },
-    "Villa Melzi Gardens (Bellagio)": { mode: "ferry", line: "Bilferge Navigazione Laghi", detail: "Bellagio → Varenna", time: "20 min · inkl. i dagspass", color: "#1565C0", bg: "#E3F2FD", icon: "⛴", maps: "https://maps.google.com/maps/dir/Bellagio/Varenna/" },
-    "Bilferge Bellagio → Varenna": { mode: "walk", line: "Gange ved innsjøen", detail: "Fergeleie → Walk of Lovers", time: "3 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Varenna+Ferry+Dock/Passeggiata+degli+Innamorati+Varenna/" },
-    "Walk of Lovers (Passeggiata degli Innamorati)": { mode: "walk", line: "Gange oppover", detail: "Promenaden → Castello di Vezio", time: "30 min oppoverbakke", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Passeggiata+degli+Innamorati+Varenna/Castello+di+Vezio/" },
-    "Castello di Vezio": { mode: "ferry", line: "Ferge tilbake til Sala Comacina", detail: "Varenna → Sala Comacina", time: "~30 min", color: "#1565C0", bg: "#E3F2FD", icon: "⛴", maps: "https://maps.google.com/maps/dir/Varenna/Sala+Comacina+Lake+Como/" }
+    "Frokost på Max's Bar": { mode: "walk", line: "Start Greenway Walk", detail: "Sala Comacina → Lenno", time: "~25 min gange sørover", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Lenno+Lake+Como/" },
+    "Greenway Walk — mot Lenno": { mode: "walk", line: "Stopp i Lenno", detail: "Greenway → Bar Pasticceria Tremezzina", time: "Ankomst Lenno", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Bar+Pasticceria+Tremezzina+Lenno/" },
+    "Bar Pasticceria Tremezzina (Lenno)": { mode: "walk", line: "Gange forbi Villa Balbianello", detail: "Lenno → Villa del Balbianello", time: "5 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Lenno/Villa+del+Balbianello/" },
+    "Villa del Balbianello (Lenno)": { mode: "walk", line: "Greenway Walk videre", detail: "Lenno → Tremezzo", time: "~35 min gange", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Lenno/Tremezzo+Lake+Como/" },
+    "Greenway Walk — mot Tremezzo": { mode: "walk", line: "Ankomst Tremezzo", detail: "Greenway → Bar Roma", time: "Ankomst Tremezzo", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Tremezzo/" },
+    "Bar Roma (Tremezzo)": { mode: "walk", line: "Gange til Villa Carlotta", detail: "Bar Roma → Villa Carlotta", time: "3 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Bar+Roma+Tremezzo/Villa+Carlotta+Tremezzo/" },
+    "Villa Carlotta (Tremezzo)": { mode: "walk", line: "Gange til fergeleiet", detail: "Tremezzo → Cadenabbia ferge", time: "~15 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Villa+Carlotta+Tremezzo/Cadenabbia+Ferry/" },
+    "Cadenabbia fergeleie": { mode: "ferry", line: "Navigazione Laghi", detail: "Cadenabbia → Varenna", time: "~35 min · dagspass €15", color: "#1565C0", bg: "#E3F2FD", icon: "⛴", maps: "https://www.navigazionelaghi.it/en/tickets-and-timetables-lake-como/" },
+    "Walk of Lovers (Passeggiata degli Innamorati)": { mode: "walk", line: "Gange oppover til slottet", detail: "Walk of Lovers → Castello di Vezio", time: "30 min oppoverbakke", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Passeggiata+degli+Innamorati+Varenna/Castello+di+Vezio/" },
+    "Castello di Vezio": { mode: "walk", line: "Ned til havnen", detail: "Slottet → Varenna havn", time: "20 min ned", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Castello+di+Vezio/Varenna/" },
+    "Aperitivo i Varenna havn": { mode: "ferry", line: "Navigazione Laghi", detail: "Varenna → Bellagio", time: "~20 min", color: "#1565C0", bg: "#E3F2FD", icon: "⛴", maps: "https://maps.google.com/maps/dir/Varenna/Bellagio+Lake+Como/" },
+    "Punta Spartivento (Bellagio)": { mode: "walk", line: "Gange til restaurant", detail: "Punta → Ristorante Silvio", time: "10 min", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Punta+Spartivento+Bellagio/Ristorante+Silvio+Bellagio/" },
+    "Middag: Ristorante Silvio": { mode: "ferry", line: "Navigazione Laghi — hjem", detail: "Bellagio → Sala Comacina/Lenno", time: "Sjekk siste avgang!", color: "#1565C0", bg: "#E3F2FD", icon: "⛴", maps: "https://www.navigazionelaghi.it/en/tickets-and-timetables-lake-como/" }
   },
   3: {
     "Greenway Walk mot Lenno": { mode: "walk", line: "Greenway Walk langs innsjøen", detail: "Sala Comacina → Lenno (~30 min)", time: "30 min gange", color: "#1B5E20", bg: "#E8F5E9", icon: "🚶", maps: "https://maps.google.com/maps/dir/Sala+Comacina/Lenno+Lake+Como/" },
